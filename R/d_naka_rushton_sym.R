@@ -1,0 +1,5 @@
+d_naka_rushton_sym <- function(x, p) {
+  mu <-  p[1] * abs(x) ^ p[2] / (abs(x) ^ p[2] + p[3] ^ p[2])
+  if_else(x > 0, mu, -mu)
+  
+}

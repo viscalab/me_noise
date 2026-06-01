@@ -1,0 +1,160 @@
+---
+title: "Discrimination task analysis"
+format: html
+editor: source 
+---
+
+## Fit proportion correct
+
+Discrimination Task:
+
+3 Diferent models:
+
+Fit the responses of the discrimination tasks from an internal representation:
+
+Fit 3 different models of the internal representation:
+
+
+
+Asymetric naka rushton:
+
+$$
+\mu = \frac{p_1 \cdot x^{p_2}}{x^{p_2 + p_4} + p_3^{p_2 + p_4}}
+$$
+
+
+```{r tidy data discrimination, include=FALSE}
+d_dat <- d_dat_raw |>
+  ungroup() |> 
+  select(participant, order, c_pedestal, c_comparison, c_dif, response) |> 
+  rename(abs_x_p = c_pedestal, abs_x_c = c_comparison, 
+         r = response, x_dif = c_dif) |> 
+  mutate(order = if_else(order == 1, 1, -1), 
+         x_p = abs_x_p * order, x_c = abs_x_c * order, 
+         r = if_else(r == "right", 1,0),
+         correct = if_else((order == 1 & r == 1) | 
+                             (order == -1 & r == 0), 1, 0)) 
+
+d_dat
+```
+
+
+
+```{r asymetric fit nloptr, include=FALSE}
+set.seed(1000)
+
+correct_par_ini_asym_nloptr <- c(20, 3, .02, -.5, 0.5, 0.01, 0.6 ) 
+correct_par_ini_asym_nloptr_lower <- c(0,  1, 0, -1, 0.0001, 0.0001, 0.001)
+correct_par_ini_asym_nloptr_upper <- c(50, 10, .1, 0, 2, 0.5, 2)
+
+d_fit_asym <- d_dat |>
+  group_by(participant) |>
+  nest() |>
+  mutate(fit = map(data, function(d) {
+        fit_psy_mu_noise(
+          d$abs_x_p,
+          d$abs_x_c,
+          d$correct,
+          create_psy_mu_fix_lapses_noise(),
+          asym_naka_fun_mu,
+          power_sigma_asym_naka_mu,
+          correct_par_ini_asym_nloptr,
+          correct_par_ini_asym_nloptr_lower,
+          correct_par_ini_asym_nloptr_upper,
+          "nloptr",
+          samples = 800)
+  } )) |>
+  select(-data) |>
+  unnest_wider(fit)
+
+d_fit_asym |>
+  select(participant, par) |>
+  unnest(par) |>
+  ggplot(aes(x = parn, y = par)) +
+  facet_wrap(~parn, scales = "free") +
+  geom_point(aes(color = participant),
+             position = position_jitter(height = 0)) +
+  geom_point(data = tibble(parn = paste0("p", seq_along(correct_par_ini_asym_nloptr_upper)),
+                           par = correct_par_ini_asym_nloptr_upper), color = "red", shape = 2) +
+  geom_point(data = tibble(parn = paste0("p", seq_along(correct_par_ini_asym_nloptr_lower)),
+                           par = correct_par_ini_asym_nloptr_lower), color = "red", shape = 2) +
+  theme()
+```
+
+
+
+```{r psy models together, include=FALSE}
+d_prop<- d_fit_asym |>
+  select(participant, prop) |>
+  unnest(prop)
+
+d_psy <- d_fit_asym |>
+  select(participant, psy) |>
+  unnest(psy)
+```
+
+## Plot fits of proportion correct from the models
+
+```{r, plot fit models, fig.width=8, fig.height=20, echo=FALSE}
+ ggplot() +
+    facet_wrap(vars(participant, abs_x_p), ncol = 4, scales = "free_x") +
+    geom_point(data = d_prop |> 
+                 mutate(abs_x_p = abs(x_p)), size = .75,
+                        aes(x = x_c - x_p, y = prop)) +
+    geom_line(data = d_psy |> 
+                mutate(abs_x_p = abs(x_p)),
+              aes(x = x_c - x_p, y = prop)) +
+  xlab("Contrast") +
+  ylab("P correct")
+
+
+```
+
+```{r plot together the references, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant), ncol = 4) +
+  geom_point(data = d_prop, size = .75,
+             aes(x = x_c, y = prop, color = factor(x_p))) +
+    geom_line(data = d_psy,
+            aes(x = x_c, y = prop, color = factor(x_p)))
+```
+
+## Plot fits of the internal representation from the models
+mu
+
+```{r best model, echo=FALSE}
+
+d_delta_asym <- d_fit_asym |>
+  select(participant, mu) |> 
+  unnest(mu)
+
+p_d_delta_mu  <- ggplot() +
+  facet_wrap(vars(participant), scales = "free") +
+  geom_line(data= d_delta_asym, aes(x, y)) +
+  xlab("Contrast") +
+  ylab("mu")
+
+p_d_delta_mu
+```
+
+sigma
+```{r plot sd, echo=FALSE}
+p_d_delta_sigma <- ggplot() +
+  facet_wrap(vars(participant), scales = "free") +
+  geom_line(data= d_delta_asym, aes(x, sigma)) +
+  xlab("Contrast") +
+  ylab("sigma")
+p_d_delta_sigma
+```
+
+
+## Plot sensitivity (delta) from the models: 
+```{r delta best model, echo=FALSE}
+p_d_delta <- ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data= d_delta_asym,
+            aes(x, delta)) +
+  xlab("Contrast") +
+  ylab("P correct")
+p_d_delta
+```

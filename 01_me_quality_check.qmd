@@ -1,0 +1,580 @@
+---
+title: "Magnitude estimation descriptive"
+format: html
+editor: source
+---
+
+## Preprocessing data ME:
+
+Address scale inconsistencies, filter out outliers, and normalize the data.
+
+
+Plot raw data
+```{r plot raw data, echo=FALSE}
+m_dat_raw |> 
+  ggplot() + 
+  facet_wrap(vars(participant), scales = "free_y") + 
+  geom_point(aes(x = c, y = r), size = .85, alpha = .5) + 
+  geom_smooth(aes(x = c, y = r),
+              method = "loess", formula = "y ~ x", se = FALSE)
+```
+
+
+### Scales inconsistencies:
+
+```{r plorbly trial, include=FALSE}
+m_trial <- m_dat_raw |>  group_by(participant) |>
+  select(participant, session, trial, r, c) |>
+  mutate(c_log = log10(c),
+         r_log = log10(r)) |> 
+  group_by(participant, session) |> 
+  arrange(trial, .by_group = TRUE) |> 
+  mutate(trial = if_else(session == "01", trial, trial + 200)) |> 
+  ungroup()
+
+m_trial|> 
+  ggplot(aes(x = trial, y = r)) +
+  facet_wrap(vars(participant)) +
+  geom_point()
+
+```
+
+
+```{r trial intervals, include=FALSE}
+m_dat_bin_trial  <- m_trial |> 
+  ungroup() |> 
+  mutate(trial_int = cut_interval(trial, n = 10))  |> 
+  group_by(participant, trial_int) |> 
+  mutate(trial_center = mean(trial)) 
+
+m_dat_bin_trial |> 
+  group_by(participant, trial_center) |> 
+  count()
+```
+
+```{r plot trial intervals, include=FALSE}
+m_dat_bin_trial |> 
+  ggplot(aes(trial_center, r)) +
+  geom_point(size = .25, alpha = .25) +#, position = position_jitter(height = NULL)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  theme_bw()
+```
+
+```{r mean trial, include=FALSE}
+m_summ_bin_trial <- m_dat_bin_trial |> 
+  group_by(participant, trial_center) |> 
+  nest() |> 
+  mutate(
+    model = map(data, ~ loess(r ~ c, data = ., span = 0.75)),
+    augmented = map(model, ~ augment(., se_fit = TRUE))
+  ) |>
+  select(!model) |> 
+  unnest(data, augmented) |> 
+  mutate(r_new = r-.fitted) |> 
+  summarise(m = mean(r_new), 
+            sta_dev = sd(r_new),
+            .groups = "keep") |> 
+  rename(trial = trial_center) 
+```
+
+```{r mean and standard deviation trial, include=FALSE}
+m_summ_bin_trial |>  
+  ggplot(aes(x = trial, y = m)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(ymin = m - sta_dev, ymax = m + sta_dev))+
+  facet_wrap(vars(participant), scales = "free_y")
+```
+
+
+```{r mean and standard deviation trial with limits, echo=FALSE}
+m_summ_bin_trial <- m_summ_bin_trial |>  
+  ungroup() |> 
+  group_by(participant) |> 
+  mutate(mean_sta_dev = mean(sta_dev),
+         mean_m = mean(m))
+  
+  
+m_summ_bin_trial |>  
+  ggplot(aes(x = trial, y = m)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(ymin = m - sta_dev, ymax = m + sta_dev)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_hline(aes(yintercept = mean_m + mean_sta_dev*3), color = "red", linetype = "dashed") +
+  geom_hline(aes(yintercept = mean_m - mean_sta_dev*3), color = "red", linetype = "dashed")
+```
+
+filtering data removing scales inconsistencies
+
+```{r filter scales inconsistencies, include=FALSE}
+m_dat_filt <- m_dat_raw |>
+  select(participant, session, trial, r, c) |>
+  filter(!(participant== "s03" & session=="01" & trial < 40)) |>
+  filter(!(participant== "s11" & session=="01" & trial < 40)) |>
+  filter(!(participant == "s09" & session == "01"& trial < 40)) |> 
+  mutate(c_log = log10(c),
+         r_log = log10(r))
+```
+
+
+Plot filtered data :
+```{r plot raw data filtered, echo=FALSE}
+m_dat_raw |> 
+  ggplot() + 
+  facet_wrap(vars(participant), scales = "free_y") + 
+  geom_point(aes(x = c, y = r), size = .85, alpha = .5) + 
+  geom_point(data = m_dat_raw |> filter(trial < 40 & session == "01") |> 
+               filter(participant %in% c("s03", "s09", "s11")),
+             aes(x = c, y = r), color = "red", size = .85) +
+  geom_smooth(aes(x = c, y = r),
+              method = "loess", formula = "y ~ x", se = FALSE)
+```
+
+
+
+### Filter Outliers:
+
+
+```{r mean responses outliers, include=FALSE}
+m_mean_r_outliers <- m_dat_filt |> 
+  group_by(participant) |> 
+  summarise(m_r = mean(r))
+```
+
+
+```{r normalized responses outliers, include=FALSE}
+m_dat_outliers <- m_dat_filt |> 
+  left_join(m_mean_r_outliers, by = join_by(participant)) 
+```
+
+
+
+```{r intervals outliers, include=FALSE}
+m_dat_bin_outliers  <- m_dat_outliers |> 
+  ungroup() |> 
+  mutate(c_int = cut_interval(c_log, n = 10))  |> 
+  group_by(participant, c_int) |> 
+  mutate(c_center = mean(c)) 
+
+m_dat_bin_outliers |> 
+  group_by(participant, c_center) |> 
+  count()
+```
+
+Respuestas en cada intervalo:
+
+```{r plot intervals outliers, include=FALSE}
+m_dat_bin_outliers |> 
+  ggplot(aes(c_center, r)) +
+  geom_point(size = .25, alpha = .25, position = position_jitter(height = 0)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  theme_bw()
+```
+
+Mean of responses by participants
+
+```{r mean outliers, include=FALSE}
+m_summ_bin_outliers <- m_dat_bin_outliers |> 
+  group_by(participant, c_center) |> 
+  mutate(m = mean(r), 
+            sta_dev = sd(r), 
+            .groups = "keep") 
+
+m_summ_bin_outliers |> 
+  ggplot(aes(x = c_center, y = m)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point() +
+  geom_line() 
+```
+Standard deviation
+
+```{r standard deviation outliers, include=FALSE}
+m_summ_bin_outliers |> 
+  ggplot(aes(x = c_center, y = sta_dev)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point() +
+  geom_line() 
+```
+
+```{r mean and standard deviation outliers, include=FALSE}
+m_summ_bin_outliers |> 
+  ggplot(aes(x = c_center, y = m)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(ymin = m - sta_dev, ymax = m + sta_dev))
+```
+
+
+
+
+#### Identify outliers:
+
+```{r identidy outliers, echo=FALSE, message=FALSE}
+
+m_outliers <- m_summ_bin_outliers |> 
+  group_by(participant) |> 
+  nest() |> 
+  mutate(
+    model = map(data, ~ loess(r ~ c, data = ., span = 0.75)),
+    augmented = map(model, ~ augment(., se_fit = TRUE))
+  ) |> 
+  unnest(data, augmented)|>
+  select(!c(model, r1, c1)) |> 
+  group_by(participant, c_center) |> 
+  mutate(min = .fitted - sta_dev*3 - 0.5*m_r,     ##2.9 #m_r
+         max = .fitted + sta_dev*3 + 0.5*m_r) |> 
+  mutate(outlier = (r < min | (r > max)))
+  
+
+ggplotly(m_outliers|> 
+  ggplot() + 
+  facet_wrap(vars(participant), scales = "free_y") + 
+  geom_point(aes(x = c, y = r, color = as_factor(outlier)), size = .85, alpha = .5) + 
+  geom_smooth(aes(x = c, y = .fitted)) +
+  geom_ribbon(aes(x = c, ymin = min, ymax = max), fill = "orange", alpha = 0.5))
+
+```
+
+Filter outliers:
+```{r filter outliers, include=FALSE}
+m_dat_no_outliers <- m_outliers |>
+  filter(!outlier) 
+```
+
+
+### Zeros:
+
+Take out some zeros for the fits
+
+```{r zeros s05, include=FALSE}
+zeros_s05 <- m_dat_no_outliers |> 
+  filter(participant == "s05") |> 
+  arrange(c) |> 
+  filter(c < .01)
+
+m_dat_some_zeros_s05 <- m_dat_no_outliers |> 
+  filter(participant == "s05") |> 
+  anti_join(zeros_s05)
+
+m_dat_no_outliers |> 
+  filter(participant == "s05") |>
+  ggplot(aes(x = c, y = r)) +
+  geom_point(alpha = .5) +
+  geom_point(data = zeros_s05, aes(x = c, y = r), color = "red") +
+  theme()
+
+
+m_dat_no_outliers |> filter(participant == "s05") |> ungroup() |> filter(r == 0) |> arrange(c) |> count()
+m_dat_no_outliers |> filter(participant == "s05") |> ungroup() |> arrange(c) |> count()
+zeros_s05 |> ungroup() |> count()
+  
+```
+
+
+```{r zeros s09, include=FALSE}
+zeros_s09 <- m_dat_no_outliers |> 
+  filter(participant == "s09") |> 
+  arrange(c) |> 
+  filter(c < .016)
+  #filter(c < .017)
+
+m_dat_some_zeros_s09 <- m_dat_no_outliers |> 
+  filter(participant == "s09") |> 
+  anti_join(zeros_s09)
+  
+
+m_dat_no_outliers |> 
+  filter(participant == "s09") |>
+  ggplot(aes(x = c, y = r)) +
+  geom_point(alpha = .5) +
+  geom_point(data = zeros_s09, aes(x = c, y = r), color = "red") +
+  theme()
+
+
+m_dat_no_outliers |> filter(participant == "s09") |> ungroup() |> filter(r == 0) |> arrange(c) |> count()
+m_dat_no_outliers |> filter(participant == "s09") |> ungroup() |> arrange(c) |> count()
+
+zeros_s09 |> ungroup() |> count()
+
+```
+
+```{r zeros s11, include=FALSE}
+zeros_s11 <- m_dat_no_outliers |> 
+  filter(participant == "s11") |> 
+  arrange(c) |> 
+  filter(c < .009)
+
+m_dat_some_zeros_s11 <- m_dat_no_outliers |> 
+  filter(participant == "s11") |> 
+  anti_join(zeros_s11)
+  
+
+m_dat_no_outliers|> 
+  filter(participant == "s11") |>
+  ggplot(aes(x = c, y = r)) +
+  geom_point(alpha = .5) +
+  geom_point(data = zeros_s11, aes(x = c, y = r), color = "red") +
+  theme()
+
+m_dat_no_outliers |> filter(participant == "s11") |> ungroup() |> filter(r == 0) |> arrange(c) |> count()
+m_dat_no_outliers |> filter(participant == "s11") |> ungroup() |> arrange(c) |> count()
+
+zeros_s11 |> ungroup() |> count()
+
+```
+
+```{r zeros, include=FALSE}
+m_dat_zeros <- m_dat_no_outliers |> 
+  arrange(participant, c) |>
+  filter(!(participant == "s05" & c < .01)) |> 
+  filter(!(participant == "s09" & c < .016)) |> 
+  filter(!(participant == "s11" & c < .009))
+
+m_dat_no_outliers |> filter(participant == "s05")
+
+```
+
+Data without outliers:
+```{r plot data without outliers, echo=FALSE}
+
+m_mean_r <- m_dat_zeros |> 
+  group_by(participant) |> 
+  summarise(m_r = mean(r))
+
+m_dat <- m_dat_zeros |>
+  select(!m_r) |> 
+  left_join(m_mean_r, by = join_by(participant)) |> 
+  mutate(r_norm = r / m_r)
+
+
+
+ggplot(m_dat) +
+  facet_wrap(vars(participant), scale = "free_y") +
+  geom_point(aes(x = c, y = r_norm), size = .5)
+```
+
+### Normalize data: 
+
+Calculate mean and standard deviation
+
+Create intervals and calculate the mean and standard deviation of each interval for each participant.
+
+The intervals are created in c log, but the data is analyzed linear. This way we have the same amount of data in each interval, but the analysis is with raw data.
+
+<!-- Para que los datos estén bien distribuidos (creo). -->
+
+```{r intervals, include=FALSE}
+m_dat_bin  <- m_dat |> 
+  ungroup() |> 
+  mutate(c_int = cut_interval(c_log, n = 10))  |> 
+  group_by(participant, c_int) |> 
+  mutate(c_center = mean(c)) 
+
+m_dat_bin |> 
+  group_by(participant, c_center) |> 
+  count()
+```
+
+
+```{r plot intervals, echo=FALSE}
+m_dat_bin |> 
+  ggplot(aes(c_center, r)) +
+  geom_point(size = .25, alpha = .25, position = position_jitter(height = NULL)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  theme_bw()
+```
+
+Calculate mean and sd of responses by participants.
+
+<!-- dataframe for summarise of responses: mean, sd, normalized mean, normalized sd. -->
+
+```{r mean, echo=FALSE}
+m_summ_bin <- m_dat_bin |> 
+  group_by(participant, c_center) |> 
+  summarise(m = mean(r), 
+            sta_dev = sd(r), 
+            m_norm = mean(r_norm),
+            sta_dev_norm = sd(r_norm),
+            .groups = "keep") |> 
+  rename(c = c_center) 
+
+m_summ_bin_all <- m_dat_bin |> 
+  mutate(participant = "all") |> 
+  mutate(c_center = round(c_center, 3)) |> 
+  group_by(participant, c_center) |> 
+  summarise(m = mean(r), 
+            sta_dev = sd(r), 
+            m_norm = mean(r_norm),
+            sta_dev_norm = sd(r_norm),
+            .groups = "keep") |> 
+  rename(c = c_center) 
+```
+
+
+
+Mean responses
+
+```{r mean responses, echo=FALSE}
+m_summ_bin |> 
+  ggplot(aes(x = c, y = m)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point() +
+  geom_line() 
+```
+
+Mean responses (normalized):
+```{r normalized mean each participant, echo=FALSE}
+m_summ_bin |> 
+  ggplot(aes(x = c, y = m_norm)) +
+  facet_wrap(vars(participant)) +
+  geom_point(aes(color = participant)) +
+  geom_line(aes(color = participant))
+```
+
+Standard deviation:
+
+```{r standard deviation, echo=FALSE}
+m_summ_bin |> 
+  ggplot(aes(x = c, y = sta_dev)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point() +
+  geom_line() +
+  ylim(0, NA) 
+```
+
+Standard deviation (normalized):
+
+```{r normalized standard deviation, echo=FALSE}
+m_summ_bin |> 
+  ggplot(aes(x = c, y = sta_dev_norm)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_point(aes(color = participant)) +
+  geom_line(aes(color = participant)) +
+  xlim(0, NA) +
+  ylim(0, NA) +
+  theme(legend.position = "none")
+```
+
+Mean and standard deviation:
+
+```{r mean and standard deviation, echo=FALSE}
+m_summ_bin |>  
+  ggplot(aes(x = c, y = m)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(ymin = m - sta_dev, ymax = m + sta_dev))+
+  facet_wrap(vars(participant), scales = "free_y")
+```
+
+Mean and standard deviation (normalized) :
+
+```{r normalized mean and standard deviation, echo=FALSE}
+m_summ_bin |>  
+  ggplot(aes(x = c, y = m_norm)) +
+  facet_wrap(vars(participant), scales = "free_y") +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_point(aes(color = participant)) +
+  geom_line(aes(color = participant)) +
+  geom_errorbar(aes(ymin = m_norm - sta_dev_norm, ymax = m_norm + sta_dev_norm, color = participant)) +
+  theme(legend.position = "none") 
+```
+
+
+## All participants together:
+
+Raw Data
+
+```{r raw data all participants, echo=FALSE}
+m_dat |> 
+  ggplot() + 
+  geom_point(aes(x = c, y = r_norm), size = .85, alpha = .5) + 
+  geom_smooth(aes(x = c, y = r_norm),
+                    method = "loess", formula = "y ~ x", se = FALSE)
+```
+
+
+Plot raw data log:
+
+```{r raw data all participants log, include=FALSE}
+m_dat |> 
+  ggplot() + 
+  geom_point(aes(x = c_log, y = r_norm), size = .85, alpha = .5) + 
+  geom_smooth(aes(x = c_log, y = r_norm),
+                    method = "loess", formula = "y ~ x", se = FALSE)
+```
+
+Calculate mean and standard deviation
+
+Create intervals and calculate the mean and standard deviation of each interval for each participant.
+
+The intervals are created in c log, but the data is analyzed linear. <!-- Para que los datos estén bien distribuidos (creo). -->
+
+```{r data for all participants together, include=FALSE}
+m_dat_bin_all  <- m_dat |> 
+  ungroup() |> 
+  mutate(c_int = cut_interval(c_log, n = 10))  |> 
+  group_by(c_int) |> 
+  mutate(c_center = mean(c)) 
+
+m_dat_bin_all |> 
+  group_by(c_center) |> 
+  count()
+```
+
+Respuestas en cada intervalo
+
+```{r intervals all participants together, echo=FALSE}
+m_dat_bin_all |> 
+  ggplot(aes(c_center, r)) +
+  geom_point(size = .5, alpha = .5) 
+```
+
+<!-- ### dataframe for summarise of responses: mean, sd, normalized mean, normalized sd. -->
+
+```{r summarise of responses, include=FALSE}
+m_summ_bin_all <- m_dat_bin_all |> 
+  group_by(c_center) |> 
+  summarise(m = mean(r), 
+            sta_dev = sd(r), 
+            m_norm = mean(r_norm),
+            sta_dev_norm = sd(r_norm),
+            .groups = "keep") |> 
+  rename(c = c_center) 
+
+```
+
+Mean responses normalized
+
+```{r normalized mean responses all participants together, echo=FALSE}
+m_summ_bin_all |> 
+  ggplot(aes(x = c, y = m_norm)) +
+  geom_point() +
+  geom_line() 
+```
+
+Standard deviation (normalized):
+
+```{r normalized standard deviation all participants together, echo=FALSE}
+m_summ_bin_all |> 
+  ggplot(aes(x = c, y = sta_dev_norm)) +
+  geom_point() +
+  geom_line() +
+  xlim(0, NA) +
+  ylim(0, NA)
+```
+
+Mean and standard deviation (normalized) :
+
+```{r normalized mean responses and standard deviation all participants together, echo=FALSE}
+m_summ_bin_all |>  
+  ggplot(aes(x = c, y = m_norm)) +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(ymin = m_norm - sta_dev_norm, ymax = m_norm + sta_dev_norm))
+```
+
+
+

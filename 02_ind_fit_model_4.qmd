@@ -1,0 +1,1590 @@
+---
+title: "Asymmetric Naka Rushton"
+format: html
+editor: source
+---
+
+Asymmetric Naka- Rushton 
+
+$$
+\Large \mu = \frac{p_1 \cdot x^{p_2}}{x^{p_2 + p_4} + p_3^{p_2 + p_4}}
+$$
+
+## Model 4_1: 
+
+Asymmetric Naka Rushton mu and constant sigma
+$$
+\sigma = {p_5} 
+$$
+
+#### s01 {.hidden}
+
+```{r asym naka mu constant noise s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s01$p
+```
+
+
+```{r asym naka mu constant noise parameters s01, include=FALSE}
+m_fit_4_1_s01$p_par
+```
+
+
+#### s02 {.hidden}
+
+```{r asym naka mu constant sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(50, 10,      .1,  .5,     40))
+
+m_fit_4_1_s02$p
+```
+
+
+```{r asym naka mu constant sigma parameters s02, include=FALSE}
+m_fit_4_1_s02$p_par
+```
+
+#### s03 {.hidden}
+
+
+```{r asym naka mu constant sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s03$p
+```
+
+
+```{r asym naka mu constant sigma parameters s03, include=FALSE}
+m_fit_4_1_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r asym naka mu constant sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s04$p
+```
+
+
+```{r asym naka mu constant sigma parameters s04, include=FALSE}
+m_fit_4_1_s04$p_par
+```
+
+
+#### s05 {.hidden}
+
+
+```{r asym naka mu constant sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s05$p
+```
+
+
+```{r asym naka mu constant sigma parameters s05, include=FALSE}
+m_fit_4_1_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r asym naka mu constant sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s06$p
+```
+
+```{r asym naka mu constant sigma parameters s06, include=FALSE}
+m_fit_4_1_s06$p_par
+```
+
+
+#### s07 {.hidden}
+
+```{r asym naka mu constant sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s07$p
+```
+
+```{r asym naka mu constant sigma parameters s07, include=FALSE}
+m_fit_4_1_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r asym naka mu constant sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s08$p
+```
+
+```{r asym naka mu constant sigma parameters s08, include=FALSE}
+m_fit_4_1_s08$p_par
+```
+
+#### s09 {.hidden}
+
+```{r asym naka mu constant sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     70))
+
+m_fit_4_1_s09$p
+```
+
+
+```{r asym naka mu constant sigma parameters s09, include=FALSE}
+m_fit_4_1_s09$p_par
+```
+
+#### s10 {.hidden}
+
+
+```{r asym naka mu constant sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+
+m_fit_4_1_s10$p
+```
+
+```{r asym naka mu constant sigma parameters s10, include=FALSE}
+m_fit_4_1_s10$p_par
+```
+
+#### s11 {.hidden}
+
+```{r asym naka mu constant sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_1_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  asym_naka_fun_mu,
+  constant_sigma_asym_naka_mu,
+  c(2,  2.49, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     40))
+m_fit_4_1_s11$p
+```
+
+```{r asym naka mu constant sigma parameters s11, include=FALSE}
+m_fit_4_1_s11$p_par
+```
+
+
+
+```{r asym naka mu constant sigma fits, include=FALSE}
+individual_fits_4_1 <- bind_rows(
+  m_fit_4_1_s01$fit,
+  m_fit_4_1_s02$fit,
+  m_fit_4_1_s03$fit,
+  m_fit_4_1_s04$fit,
+  m_fit_4_1_s05$fit,
+  m_fit_4_1_s06$fit,
+  m_fit_4_1_s07$fit,
+  m_fit_4_1_s08$fit,
+  m_fit_4_1_s09$fit,
+  m_fit_4_1_s10$fit,
+  m_fit_4_1_s11$fit
+)
+```
+
+```{r asym naka mu constant sigma preds, include=FALSE}
+individual_preds_4_1 <- bind_rows(
+  m_fit_4_1_s01$pred,
+  m_fit_4_1_s02$pred,
+  m_fit_4_1_s03$pred,
+  m_fit_4_1_s04$pred,
+  m_fit_4_1_s05$pred,
+  m_fit_4_1_s06$pred,
+  m_fit_4_1_s07$pred,
+  m_fit_4_1_s08$pred,
+  m_fit_4_1_s09$pred,
+  m_fit_4_1_s10$pred,
+  m_fit_4_1_s11$pred
+)
+```
+
+
+```{r asym naka mu constant sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_4_1, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r asym naka mu constant sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4_1, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r asym naka mu constant sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4_1,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r asym naka mu constant sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_4_1, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+## Model 4_2: 
+Aymmetric Naka Rushton mu, poisson sigma
+$$
+\sigma = \sqrt{\mu} + p_5
+$$
+
+#### s01 {.hidden}
+
+```{r asym naka mu poisson sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s01$p
+```
+
+
+```{r asym naka mu poisson sigma parameters s01, include=FALSE}
+m_fit_4_2_s01$p_par
+```
+
+#### s02 {.hidden}
+
+<!-- p1 se va mucho -->
+
+```{r asym naka mu poisson sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s02$p
+```
+
+
+```{r asym naka mu poisson sigma parameters s02, include=FALSE}
+m_fit_4_2_s02$p_par
+```
+
+#### s03 {.hidden}
+
+
+```{r asym naka mu poisson sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s03$p
+```
+
+
+```{r asym naka mu poisson sigma parameters s03, include=FALSE}
+m_fit_4_2_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r asym naka mu poisson sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+
+m_fit_4_2_s04$p
+```
+
+
+```{r asym naka mu poisson sigma parameters s04, include=FALSE}
+m_fit_4_2_s04$p_par
+```
+
+#### s05 {.hidden}
+
+```{r asym naka mu poisson sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(70, 10,      .1,  .5,     10))
+
+m_fit_4_2_s05$p
+```
+
+
+```{r asym naka mu poisson noise parameters s05, include=FALSE}
+m_fit_4_2_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r asym naka mu poisson sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s06$p
+```
+
+```{r asym naka mu poisson sigma parameters s06, include=FALSE}
+m_fit_4_2_s06$p_par
+```
+
+
+#### s07 {.hidden}
+
+```{r asym naka mu poisson sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s07$p
+```
+
+```{r asym naka mu poisson sigma parameters s07, include=FALSE}
+m_fit_4_2_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r asym naka mu poisson sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(70, 10,      .1,  .5,     10))
+
+m_fit_4_2_s08$p
+```
+
+```{r asym naka mu poisson sigma parameters s08, include=FALSE}
+m_fit_4_2_s08$p_par
+```
+
+#### s09 {.hidden}
+
+
+```{r asym naka mu poisson sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  .1, .00001,  -1.5,    .0001), 
+  c(40, 20,      .1,  .5,     10))
+
+m_fit_4_2_s09$p
+```
+
+<!-- No soy capaz de poner bien p2 -->
+```{r asym naka mu poisson sigma parameters s09, include=FALSE}
+m_fit_4_2_s09$p_par
+```
+
+#### s10 {.hidden}
+
+
+```{r, asym naka mu poisson sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s10$p
+```
+
+```{r asym naka mu poisson sigma parameters s10, include=FALSE}
+m_fit_4_2_s10$p_par
+```
+
+
+#### s11 {.hidden}
+
+```{r asym naka mu poisson sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_2_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  asym_naka_fun_mu,
+  poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001), 
+  c(40, 10,      .1,  .5,     10))
+
+m_fit_4_2_s11$p
+```
+
+```{r asym naka mu poisson sigma parameters s11, include=FALSE}
+m_fit_4_2_s11$p_par
+```
+
+
+
+```{r asym naka mu poisson sigma fits, include=FALSE}
+individual_fits_4_2 <- bind_rows(
+  m_fit_4_2_s01$fit,
+  m_fit_4_2_s02$fit,
+  m_fit_4_2_s03$fit,
+  m_fit_4_2_s04$fit,
+  m_fit_4_2_s05$fit,
+  m_fit_4_2_s06$fit,
+  m_fit_4_2_s07$fit,
+  m_fit_4_2_s08$fit,
+  m_fit_4_2_s09$fit,
+  m_fit_4_2_s10$fit,
+  m_fit_4_2_s11$fit
+)
+```
+
+```{r asym naka mu poisson sigma preds, include=FALSE}
+individual_preds_4_2 <- bind_rows(
+  m_fit_4_2_s01$pred,
+  m_fit_4_2_s02$pred,
+  m_fit_4_2_s03$pred,
+  m_fit_4_2_s04$pred,
+  m_fit_4_2_s05$pred,
+  m_fit_4_2_s06$pred,
+  m_fit_4_2_s07$pred,
+  m_fit_4_2_s08$pred,
+  m_fit_4_2_s09$pred,
+  m_fit_4_2_s10$pred,
+  m_fit_4_2_s11$pred
+)
+```
+
+
+```{r asym naka mu poisson sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_4_2, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r asym naka mu poisson sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4_2, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r asym naka mu poisson sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4_2,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r asym naka mu poisson sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_4_2, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 4_3: 
+Asymmetric Naka- Rushton mu, super poisson sigma
+$$
+\sigma = \sqrt{\mu + (p_5 \mu)^2} + p_6
+$$
+
+#### s01 {.hidden}
+```{r asym naka mu super poisson sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s01$p
+
+```
+
+```{r asym naka mu super poisson sigma parameters s01, include=FALSE}
+m_fit_4_3_s01$p_par
+```
+
+#### s02 {.hidden}
+
+```{r asym naka mu super poisson sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s02$p
+```
+
+
+```{r asym naka mu super poisson sigma parameters s02, include=FALSE}
+m_fit_4_3_s02$p_par
+```
+
+
+#### s03 {.hidden}
+
+
+```{r asym naka mu super poisson sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s03$p
+```
+
+
+```{r asym naka mu super poisson sigma parameters s03, include=FALSE}
+m_fit_4_3_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r asym naka mu super poisson sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s04$p
+```
+
+
+```{r asym naka mu super poisson sigma parameters s04, include=FALSE}
+m_fit_4_3_s04$p_par
+```
+
+#### s05 {.hidden}
+
+
+```{r asym naka mu super poisson sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(50, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s05$p
+```
+
+
+```{r asym naka mu super poisson sigma parameters s05, include=FALSE}
+m_fit_4_3_s05$p_par
+```
+
+#### s06 {.hidden}
+
+```{r asym naka mu super poisson sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s06$p
+```
+
+```{r asym naka mu super poisson sigma parameters s06, include=FALSE}
+m_fit_4_3_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r, asym naka mu super poisson sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s07$p
+```
+
+```{r asym naka mu super poisson sigma parameters s07, include=FALSE}
+m_fit_4_3_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r asym naka mu super poisson sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(50, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s08$p
+```
+
+```{r asym naka mu super poisson sigma parameters s08, include=FALSE}
+m_fit_4_3_s08$p_par
+```
+
+#### s09 {.hidden}
+
+```{r asym naka mu super poisson sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s09$p
+```
+
+
+```{r asym naka mu super poisson sigma parameters s09, include=FALSE}
+m_fit_4_3_s09$p_par
+```
+
+#### s10 {.hidden}
+
+
+```{r asym naka mu super poisson sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s10$p
+```
+
+```{r asym naka mu super poisson sigma parameters s10, include=FALSE}
+m_fit_4_3_s10$p_par
+```
+
+#### s11 {.hidden}
+
+```{r asym naka mu super poisson sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_3_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  asym_naka_fun_mu,
+  super_poisson_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.00001),
+  c(40, 10,      .1,  .5,     10, 0.3))
+
+m_fit_4_3_s11$p
+```
+
+```{r asym naka mu super poisson sigma parameters s11, include=FALSE}
+m_fit_4_3_s11$p_par
+```
+
+
+
+```{r asym naka mu super poisson sigma fits, include=FALSE}
+individual_fits_4_3 <- bind_rows(
+  m_fit_4_3_s01$fit,
+  m_fit_4_3_s02$fit,
+  m_fit_4_3_s03$fit,
+  m_fit_4_3_s04$fit,
+  m_fit_4_3_s05$fit,
+  m_fit_4_3_s06$fit,
+  m_fit_4_3_s07$fit,
+  m_fit_4_3_s08$fit,
+  m_fit_4_3_s09$fit,
+  m_fit_4_3_s10$fit,
+  m_fit_4_3_s11$fit
+)
+```
+
+```{r asym naka mu super poisson sigma preds, include=FALSE}
+individual_preds_4_3 <- bind_rows(
+  m_fit_4_3_s01$pred,
+  m_fit_4_3_s02$pred,
+  m_fit_4_3_s03$pred,
+  m_fit_4_3_s04$pred,
+  m_fit_4_3_s05$pred,
+  m_fit_4_3_s06$pred,
+  m_fit_4_3_s07$pred,
+  m_fit_4_3_s08$pred,
+  m_fit_4_3_s09$pred,
+  m_fit_4_3_s10$pred,
+  m_fit_4_3_s11$pred
+)
+```
+
+
+```{r asym naka mu super poisson sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_4_3, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r asym naka mu super poisson sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4_3, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r asym naka mu super poisson sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4_3,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r asym naka mu super poisson sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_4_3, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 4_4: 
+Asymmetric Naka Rushton mu, multiplicative sigma
+$$
+\sigma = p_5 \cdot \mu + {p_6}
+$$
+
+#### s01 {.hidden}
+```{r asym naka mu mult sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s01$p
+
+```
+
+```{r asym naka mu mult sigma parameters s01, include=FALSE}
+m_fit_4_4_s01$p_par
+```
+
+#### s02 {.hidden}
+
+```{r asym naka mu mult sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s02$p
+```
+
+
+```{r asym naka mu mult sigma parameters s02, include=FALSE}
+m_fit_4_4_s02$p_par
+```
+
+#### s03 {.hidden}
+
+```{r asym naka mu mult sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s03$p
+```
+
+
+```{r asym naka mu mult sigma parameters s03, include=FALSE}
+m_fit_4_4_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r asym naka mu mult sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s04$p
+```
+
+
+```{r asym naka mu mult sigma parameters s04, include=FALSE}
+m_fit_4_4_s04$p_par
+```
+
+#### s05 {.hidden}
+
+
+```{r asym naka mu mult sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s05$p
+```
+
+
+```{r asym naka mu mult sigma parameters s05, include=FALSE}
+m_fit_4_4_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r asym naka mu mult sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s06$p
+```
+
+```{r asym naka mu mult sigma parameters s06, include=FALSE}
+m_fit_4_4_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r asym naka mu mult sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s07$p
+```
+
+```{r asym naka mu mult sigma parameters s07, include=FALSE}
+m_fit_4_4_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r asym naka mu mult sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(50, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s08$p
+```
+
+```{r asym naka mu mult sigma parameters s08, include=FALSE}
+m_fit_4_4_s08$p_par
+```
+
+#### s09 {.hidden}
+
+
+```{r asym naka mu mult sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s09$p
+```
+
+
+```{r asym naka mu mult sigma parameters s09, include=FALSE}
+m_fit_4_4_s09$p_par
+```
+
+#### s10 {.hidden}
+
+```{r asym naka mu mult sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 15,      .1,  .5,     10, 0.5))
+
+m_fit_4_4_s10$p
+```
+
+```{r asym naka mu mult sigma parameters s10, include=FALSE}
+m_fit_4_4_s10$p_par
+```
+
+#### s11 {.hidden}
+
+```{r asym naka mu mult sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_4_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  asym_naka_fun_mu,
+  mult_sigma_asym_naka_mu,
+  c(2,  1.5, .00001,  -1.5,    .0001, 0.001),
+  c(40, 10,      .1,  .5,     10, 3))
+
+m_fit_4_4_s11$p
+```
+
+```{r asym naka mu mult sigma parameters s11, include=FALSE}
+m_fit_4_4_s11$p_par
+```
+
+
+
+```{r asym naka mu mult sigma fits, include=FALSE}
+individual_fits_4_4 <- bind_rows(
+  m_fit_4_4_s01$fit,
+  m_fit_4_4_s02$fit,
+  m_fit_4_4_s03$fit,
+  m_fit_4_4_s04$fit,
+  m_fit_4_4_s05$fit,
+  m_fit_4_4_s06$fit,
+  m_fit_4_4_s07$fit,
+  m_fit_4_4_s08$fit,
+  m_fit_4_4_s09$fit,
+  m_fit_4_4_s10$fit,
+  m_fit_4_4_s11$fit
+)
+```
+
+```{r asym naka mu mult sigma preds, include=FALSE}
+individual_preds_4_4 <- bind_rows(
+  m_fit_4_4_s01$pred,
+  m_fit_4_4_s02$pred,
+  m_fit_4_4_s03$pred,
+  m_fit_4_4_s04$pred,
+  m_fit_4_4_s05$pred,
+  m_fit_4_4_s06$pred,
+  m_fit_4_4_s07$pred,
+  m_fit_4_4_s08$pred,
+  m_fit_4_4_s09$pred,
+  m_fit_4_4_s10$pred,
+  m_fit_4_4_s11$pred
+)
+```
+
+
+```{r asym naka mu mult sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_4_4, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r asym naka mu mult sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4_4, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r asym naka mu mult sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4_4,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r asym naka mu mult sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_4_4, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 4_5: 
+Asymmetric Naka- Rushton mu, power sigma
+$$
+\sigma = p_5 \cdot (\mu)^{p_7} + {p_6}
+$$
+
+
+#### s01 {.hidden}
+
+```{r asym naka mu power sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(20,  2, .009,  -1.3,    .05,  .000001,  .001), 
+  c(35, 8,  .03,  -.5,      1,    .1,   1))
+
+m_fit_4_5_s01$p
+
+```
+
+```{r asym naka mu power sigma parameters s01, include=FALSE}
+m_fit_4_5_s01$p_par
+```
+
+#### s02 {.hidden}
+
+```{r asym naka mu power sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .01,  -1,    .05,  .00001,  .001), 
+  c(20, 6,  .1,  0,      1,    .2,   1))
+
+m_fit_4_5_s02$p
+```
+
+
+```{r asym naka mu power sigma parameters s02, include=FALSE}
+m_fit_4_5_s02$p_par
+```
+
+#### s03 {.hidden}
+
+```{r asym naka mu power sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(1,  1, .0005,  -1,    .05,  .00001,  .001), 
+  c(20, 10,  .05,  0,      1,    .07,   1))
+
+m_fit_4_5_s03$p
+```
+
+
+```{r asym naka mu power sigma parameters s03, include=FALSE}
+m_fit_4_5_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r asym naka mu power sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .005,  -1,    .05,  .00001,  .001), 
+  c(25, 10,  .2,  0,      1,    .2,   2))
+
+m_fit_4_5_s04$p
+```
+
+
+```{r asym naka mu power sigma parameters s04, include=FALSE}
+m_fit_4_5_s04$p_par
+```
+
+#### s05 {.hidden}
+
+```{r asym naka mu power sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(10,  1, .01,  -1.5,    .05,  .00001,  .001) , 
+  c(40, 6,  .1,  -.25,      1,    .2,   2))
+
+m_fit_4_5_s05$p
+```
+
+
+```{r asym naka mu power sigma parameters s05, include=FALSE}
+m_fit_4_5_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r asym naka mu power sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .005,  -1.5,    .05,  .0001,  .001), 
+  c(10, 10,  .1,  0,      1,    .2,   2))
+
+m_fit_4_5_s06$p
+```
+
+```{r asym naka mu power sigma parameters s06, include=FALSE}
+m_fit_4_5_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r asym naka mu power sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .005,  -1.5,    .05,  .00001,  .001), 
+  c(10, 5,  .1,  0,      .5,    .2,   2))
+
+m_fit_4_5_s07$p
+```
+
+```{r asym naka mu power sigma parameters s07, include=FALSE}
+m_fit_4_5_s07$p_par
+```
+
+
+#### s08 {.hidden}
+
+```{r asym naka mu power sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .01,  -1.5,    .05,  .00001,  .001), 
+  c(40, 6,  .1,  0,      1,    .2,   1))
+
+m_fit_4_5_s08$p
+```
+
+```{r asym naka mu power sigma parameters s08, include=FALSE}
+m_fit_4_5_s08$p_par
+```
+
+
+#### s09 {.hidden}
+
+```{r asym naka mu power sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .01,  -1.5,    .05,  .0001,  .001), 
+  c(80, 30,  .1,  0,      2,    .2,   1.5))
+
+m_fit_4_5_s09$p
+```
+
+
+```{r asym naka mu power sigma parameters s09, include=FALSE}
+m_fit_4_5_s09$p_par
+```
+
+#### s10 {.hidden}
+
+```{r asym naka mu power sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .01,  -1,    .05,  .000001,  .001), 
+  c(30, 15,  .2,  0,      1,    .002,   2))
+
+m_fit_4_5_s10$p
+```
+
+```{r asym naka mu power sigma parameters s10, include=FALSE}
+m_fit_4_5_s10$p_par
+```
+
+
+#### s11 {.hidden}
+
+```{r asym naka mu power sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_4_5_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  asym_naka_fun_mu,
+  power_sigma_asym_naka_mu,
+  c(.01,  1, .005,  -1,    .0005,  .00001,  0.1), 
+  c(25, 30,  .2,  0,      2,    .15,   2))
+
+m_fit_4_5_s11$p
+```
+
+```{r asym naka mu power sigma parameters s11, include=FALSE}
+m_fit_4_5_s11$p_par
+```
+
+
+
+```{r asym naka mu power sigma fits, include=FALSE}
+individual_fits_4_5 <- bind_rows(
+  m_fit_4_5_s01$fit,
+  m_fit_4_5_s02$fit,
+  m_fit_4_5_s03$fit,
+  m_fit_4_5_s04$fit,
+  m_fit_4_5_s05$fit,
+  m_fit_4_5_s06$fit,
+  m_fit_4_5_s07$fit,
+  m_fit_4_5_s08$fit,
+  m_fit_4_5_s09$fit,
+  m_fit_4_5_s10$fit,
+  m_fit_4_5_s11$fit
+)
+```
+
+```{r asym naka mu power sigma preds, include=FALSE}
+individual_preds_4_5 <- bind_rows(
+  m_fit_4_5_s01$pred,
+  m_fit_4_5_s02$pred,
+  m_fit_4_5_s03$pred,
+  m_fit_4_5_s04$pred,
+  m_fit_4_5_s05$pred,
+  m_fit_4_5_s06$pred,
+  m_fit_4_5_s07$pred,
+  m_fit_4_5_s08$pred,
+  m_fit_4_5_s09$pred,
+  m_fit_4_5_s10$pred,
+  m_fit_4_5_s11$pred
+)
+```
+
+
+```{r asym naka mu power sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_4_5, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r asym naka mu power sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4_5, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r asym naka mu power sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4_5,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r asym naka mu power sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_4_5, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+
+
+
+### MODELS:
+
+```{r linear mu all models model 4 fits, include=FALSE}
+individual_fits_4 <- bind_rows(
+  individual_fits_4_1 |>  mutate(model = "4_1"),
+  individual_fits_4_2 |>  mutate(model = "4_2"),
+  individual_fits_4_3 |>  mutate(model = "4_3"),
+  individual_fits_4_4 |>  mutate(model = "4_4"),
+  individual_fits_4_5 |>  mutate(model = "4_5"))
+  
+```
+
+```{r linealr mu all models model 4 predictions, include=FALSE}
+individual_preds_4 <- bind_rows(
+  individual_preds_4_1 |>  mutate(model = "4_1"),
+  individual_preds_4_2 |>  mutate(model = "4_2"),
+  individual_preds_4_3 |>  mutate(model = "4_3"),
+  individual_preds_4_4 |>  mutate(model = "4_4"),
+  individual_preds_4_5 |>  mutate(model = "4_5"))
+```
+
+
+### Plot models and raw data
+```{r linear mu all models model 4 plot raw data, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm), alpha = .3) +
+    geom_line(data = individual_preds_4, 
+              aes(x = x, y = mu, color = model)))
+```
+
+### Plot models and mean 
+```{r linear mu all models model 4 plot mean, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm), alpha = .3) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_4, 
+              aes(x = x, y = mu, color = model)))
+```
+
+### Plot models and standard deviation 
+```{r linear mu all models model 4 sd, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm), alpha = .3) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_4 |> 
+                filter(model %in% c("4_2", "4_5")), 
+              aes(x = x, y = sigma, color = model)))
+```
+
+### Plot models and delta
+```{r linear mu all models model 4 delta, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_line(data = individual_preds_4, 
+              aes(x = x, y = delta_m, color = model)))
+```
+

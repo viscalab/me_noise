@@ -1,0 +1,137 @@
+---
+title: "Untitled"
+format: html
+editor: source
+---
+
+## Proportion correct ----------------------------------------------------------
+
+### Logistic model for each pedestal for each participant
+
+```{r}
+dat_d_p_correct <- d_dat_raw |>
+  ungroup() |>
+  select(participant, c_pedestal, c_comparison, c_dif, correct) |>
+  mutate(c_dif = abs(c_dif))
+```
+
+```{r,fig.width=10, fig.height=10}
+fit_logistic_d_p_correct <- dat_d_p_correct |> 
+  group_by(participant, c_pedestal) |> 
+  mutate(c_dif = log10(c_dif)) |> 
+  nest() |> 
+  mutate(fit = map(data, function(d) {
+    fit_psy(d$c_dif,
+            d$correct,
+            create_logistic_fix_lapses(0.5, 0),
+            c(-2, .5),
+            x_min = -3.5,
+            x_max = -0.5)
+  })) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+
+prop_logistic_d_p_correct <- fit_logistic_d_p_correct |> 
+  ungroup() |> 
+  select(participant, c_pedestal, prop) |> 
+  unnest(prop)
+
+psy_logistic_d_p_correct <- fit_logistic_d_p_correct |>
+  ungroup() |> 
+  select(participant, c_pedestal, psy) |> 
+  unnest(psy)
+
+threshold_logistic_d_p_correct <- psy_logistic_d_p_correct |> 
+  group_by(participant, c_pedestal) |> 
+  reframe(calculate_threshold(x, prop, prop = .76)) |> 
+  mutate(delta = 1 /thre)
+
+ ggplot() +
+  facet_wrap(vars(participant, c_pedestal), ncol = 8, scales = "free_x") +
+  geom_point(data = prop_logistic_d_p_correct, 
+             aes(x = x, y = prop)) +
+  geom_line(data = psy_logistic_d_p_correct,
+            aes(x = x, y = prop)) +
+  geom_segment(data = threshold_logistic_d_p_correct, 
+               aes(x = thre, xend = thre, 
+                   y = .4, yend = prop)) +
+  #scale_x_continuous(breaks = seq(0, .15, .05)) +
+  scale_y_continuous(breaks = seq(0, 1, .25))
+```
+
+```{r}
+ ggplot() +
+  facet_wrap(vars(participant), scales = "free_x") +
+  geom_point(data = prop_logistic_d_p_correct, 
+             aes(x = x + c_pedestal, y = prop, color = factor(c_pedestal)), size = .75) +
+  geom_line(data = psy_logistic_d_p_correct,
+            aes(x = x + c_pedestal, y = prop, color = factor(c_pedestal))) +
+  geom_segment(data = threshold_logistic_d_p_correct,
+               aes(x = thre + c_pedestal, xend = thre + c_pedestal,
+                   y = .4, yend = prop, color = factor(c_pedestal))) +
+  scale_x_continuous(breaks = seq(0, .15, .05)) +
+  scale_y_continuous(breaks = seq(0, 1, .25)) +
+  theme(legend.position = "top")
+```
+
+
+```{r}
+
+threshold_logistic <- threshold_logistic_d_p_correct |> 
+  mutate(thre = 10^thre) |>
+  mutate(delta= 1/thre)
+
+threshold_logistic |> 
+  ggplot(aes(x = c_pedestal, y = delta)) +
+  facet_wrap(vars(participant), scales= "free") +
+  geom_point() +
+  geom_line() 
+```
+
+
+```{r}
+threshold_logistic |> 
+  ggplot(aes(x = c_pedestal, y = (delta))) +
+  facet_wrap(vars(participant), scales= "free") +
+  geom_point() +
+  geom_line() +
+  geom_line(data = m_delta, aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) +
+  facet_wrap(vars(participant)) +
+  geom_line(data = d_delta, aes(x, delta_d), color = "darkorchid4", linewidth = 0.9)
+  
+  
+```
+
+```{r}
+
+d_psy_asym_noise_aic <- d_fit_asym |> 
+  mutate(model="asym") |> 
+  select(participant, model, aic) 
+  
+
+d_aic_comp <- fit_logistic_d_p_correct |> 
+  group_by(participant) |> 
+  summarise(aic = sum(aic)) |> 
+  mutate(model = "logistic") |>
+  bind_rows(d_psy) |> 
+  group_by(participant) |>
+  slice_min(aic)
+```
+
+```{r}
+
+threshold_logistic_all <- threshold_logistic |> 
+  ungroup() |> 
+  group_by(c_pedestal) |> 
+  summarise(delta = mean(delta))
+
+```
+
+```{r}
+threshold_logistic_all |> 
+  ggplot(aes(x = c_pedestal, y = delta)) +
+  geom_point() +
+  geom_line()
+```
+

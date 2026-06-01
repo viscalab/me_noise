@@ -1,0 +1,263 @@
+---
+title: "Untitled"
+editor: source
+---
+
+Averange exponent low contrast
+```{r}
+param_me <- individual_fits_4_5 |> 
+  select(par) |> 
+  unnest(par) |> 
+  pivot_wider(names_from = parn, values_from = par) |> 
+  mutate(exp_high = -p4*(1-p7)-1,
+         exp_low = p2*(1-p7)-1,
+         exp_low_noise = p2-1) |> 
+  left_join(c_combined_der |> select(participant, der_m, der_d), 
+                                      by ="participant") 
+  
+```
+
+```{r}
+ci_parameters <- param_me |> 
+  ungroup() |>summarise(across(
+      c(p1, p2, p3, p4, p5, p6, p7, exp_high, exp_low, exp_low_noise, der_m, der_d),
+      ~ calculate_t_ci(.x), .names = "{.col}")) |> 
+  unnest(cols = everything(), names_sep = "__") |> 
+  pivot_longer(everything(), names_to = c("parameter", "metric"), names_sep = "__") |> 
+  pivot_wider(names_from = metric, values_from = value)
+
+
+means_par <- ci_parameters |> select(parameter, estimate)
+
+```
+
+
+t test, comprobar que gamma no es poisson: 
+
+```{r}
+t.test(param_me$p7, mu=0.5)
+ttestBF(param_me$p7, mu=0.5)
+```
+
+
+Comprobar WB -1
+
+
+Derivada de magnitude y discriminacion al 14%
+```{r}
+
+t.test(param_me$der_m, mu=-1)
+ttestBF(param_me$der_m, mu=-1, nullInterval = c(-1, Inf))
+t.test(param_me$der_d, mu=-1)
+ttestBF(param_me$der_d, mu=-1, nullInterval = c(-1, Inf))
+
+```
+```{r}
+t.test(param_me$exp_high, mu=-1)
+ttestBF(param_me$exp_high, mu=-1, nullInterval = c(-1, Inf))
+```
+
+Diferentes tests entre derivadas y exponentes de magnitude estimation
+```{r}
+t.test(param_me$der_m, param_me$exp_high, paired = TRUE)
+ttestBF(param_me$der_m, param_me$exp_high, paired = TRUE)
+```
+
+```{r}
+t.test(param_me$der_d, param_me$exp_high, paired = TRUE)
+ttestBF(param_me$der_d, param_me$exp_high, paired = TRUE)
+```
+
+
+t test poisson: 
+
+```{r}
+t.test(param_me$p7, mu=0.5)
+
+ttestBF(param_me$p7, mu=0.5)
+```
+
+
+
+
+Comprobar comportamiento asintotico (no se si esa es la expresion)
+
+```{r}
+test_exp <- individual_preds_4_5 |> 
+  left_join(param_me, by = "participant", relationship="many-to-many") |> 
+  mutate(exp_low = p2,
+         exp_high = abs(p4)) |> 
+  mutate(
+    mu_low = p1*p3^-(p2+p4)*x^exp_low,
+    mu_high = p1*x^exp_high
+  )
+```
+
+
+Sensitivity:
+
+
+```{r}
+m_delta_comp <- m_delta |>
+  select(participant, x, delta_m) |>
+  left_join(param_me) |>
+      mutate(high_c = -p4 * (1 / p5) * p1^(1-p7)* x^exp_high)
+```
+
+```{r}
+
+vlines <- test_exp |>
+  group_by(participant) |>
+  slice_min(abs(x - p3), n = 1) |>
+  ungroup() |>
+  select(participant, x, p3)
+
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_line(data = test_exp,
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2) +
+    geom_line(data = test_exp, 
+              aes(x = x, y = mu_low), color = "red", linetype = "dashed") +
+    geom_line(data = test_exp,
+              aes(x = x, y = mu_high), color = "blue", linetype = "dashed") +
+    geom_vline(
+    data = vlines,
+    aes(xintercept = x),
+    linetype = "dotted"
+  ) +
+  ylim(0, 5)
+```
+
+
+
+```{r}
+
+ggplot(m_delta_comp)+
+  facet_wrap(vars(participant))+
+  geom_line(aes(x = x, y = delta_m, group = participant), color = "aquamarine4") +
+  geom_line(aes(x = x, y = high_c, group = participant), linetype = "dashed") +
+    geom_vline(
+    data = vlines,
+    aes(xintercept = x),
+    linetype = "dotted"
+  ) +
+  scale_x_log10()  +
+  scale_y_log10()
+```
+
+
+
+```{r}
+
+param_d <- d_fit_asym |> 
+  select(par) |> 
+  unnest(par) |> 
+  pivot_wider(names_from = parn, values_from = par)
+```
+
+
+
+
+Todos juntos: 
+```{r}
+param_me_mean <- param_me |> ungroup() |> 
+  summarise(p1 = mean(p1), 
+            p2 = mean(p2),
+            p3 = mean(p3),
+            p4 = mean(p4), 
+            p5 = mean(p5),
+            p6 = mean(p6), 
+            p7 = mean(p7))
+m_delta_comp_mean <- m_delta |> ungroup() |> select(x, delta_m) |> 
+  group_by(x) |> 
+  summarise(delta_m = mean(delta_m))
+
+joined_params <- m_delta_comp_mean |> 
+  left_join(param_me_mean, by = character()) |> 
+  mutate(
+    high_c= p1^(1-p7)*-p4*p5^-1*x^(-p4-1+p4*p7),
+    exp_high = -p4-1+p4*p7,
+                 mu_low = p1*p3^(-p4-p2) * x^p2)
+  
+```
+
+
+sensitivity sources
+
+```{r}
+table_sources <- param_me |> 
+  select(participant, p2, p4, p7, p6, exp_low_noise, exp_low, exp_high) |> 
+  mutate(p4 = -p4) |> 
+  mutate(exp_high_gamma = p4*(1-0)-1,
+         exp_high_alpha = 1*(1-p7)-1) |> 
+  ungroup() |> 
+    mutate(participant = sprintf("p%02d",
+    match(participant, unique(participant))))
+```
+
+
+
+
+high contrast
+```{r}
+table_sources_high <- table_sources |> 
+  group_by(participant) |> 
+  select(participant, p4, p7,exp_high, exp_high_gamma, exp_high_alpha) |> 
+  mutate(total_weight = exp_high_gamma + exp_high_alpha + exp_high_gamma*exp_high_alpha,
+        total_abs_weight = abs(exp_high_gamma) + abs(exp_high_alpha) + abs(exp_high_gamma*exp_high_alpha)) |> 
+  mutate(weight_alpha = abs(exp_high_alpha)/total_abs_weight,
+         weight_gamma = abs(exp_high_gamma)/total_abs_weight,
+         weight_interaction = abs(exp_high_gamma*exp_high_alpha)/total_abs_weight) |> 
+  select(participant, exp_high, exp_high_gamma, exp_high_alpha, weight_gamma, weight_alpha, weight_interaction) |> 
+  ungroup()
+```
+
+
+
+
+```{r}
+t_s3_high <- table_sources_high |> 
+  gt() |> 
+  #fmt_markdown(columns = model) |>
+  cols_label(
+    participant = "Participant",
+    exp_high = md("E<br>$\\alpha(1-\\gamma)-1$"),
+    exp_high_gamma = md("E<sub>trasducer<br>$\\alpha(1-0)-1$"),
+    exp_high_alpha = md("E<sub>noise<br>$1(1-\\gamma)-1$"),
+    weight_gamma = md("E<sub>trasducer<br>weight"),
+    weight_alpha = md("E<sub>noise<br>weight"),
+    weight_interaction = md("E<sub>interaction<br>weight")
+  ) |>
+  fmt_number(columns = c(exp_high, exp_high_gamma, exp_high_alpha, weight_gamma, weight_alpha, weight_interaction), decimals = 2) |>
+  #cols_align(align = "left") |> 
+  cols_align(align = "center") |> 
+  tab_style(
+    style = cell_text(weight = "bold"),
+    #size = px(10),               # Reduce el tamaño de la fuente (ajusta el número según necesites)
+    #whitespace = "nowrap",
+    locations = cells_column_labels()
+  ) |> 
+  cols_width(
+    c(weight_gamma,weight_alpha) ~ px(95),
+    everything() ~ px(120) # Ajusta este valor según el ancho total de tu página
+  ) |>
+  tab_options(
+    #table.width = pct(100),
+    table.font.names = "Times New Roman",
+    table.border.top.color = "black",
+    table.border.top.width = px(1.5),
+    column_labels.border.bottom.color = "black",
+    column_labels.border.bottom.width = px(1),
+    table.border.bottom.color = "black",
+    table.border.bottom.width = px(1.5),
+    table_body.hlines.style = "none",
+    table_body.vlines.style = "none",
+    column_labels.vlines.style = "none",
+    table.border.left.style = "none",
+    table.border.right.style = "none",
+    data_row.padding = px(8))
+t_s3_high 
+
+gtsave(data = t_s3_high, filename = "figures/t_s3_high.png")
+```
+

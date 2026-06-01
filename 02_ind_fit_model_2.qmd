@@ -1,0 +1,1651 @@
+---
+title: "Power models"
+format: html
+editor: source
+---
+
+Power mu
+$$
+\Large \mu = p_1 \cdot x^{p_2} 
+$$
+## Model 2_1: 
+
+Power mu, constant sigma
+$$
+\sigma = {p_3} 
+$$
+
+#### s01 {.hidden}
+
+```{r power mu constant noise s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s01$p
+```
+
+
+```{r power mu constant noise parameters s01, include=FALSE}
+m_fit_2_1_s01$p_par
+```
+
+
+
+#### s02 {.hidden}
+
+```{r power mu constant sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s02$p
+```
+
+
+```{r power mu constant sigma parameters s02, include=FALSE}
+m_fit_2_1_s02$p_par
+```
+
+
+
+#### s03 {.hidden}
+
+```{r power mu constant sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s03$p
+```
+
+
+```{r power mu constant sigma parameters s03, include=FALSE}
+m_fit_2_1_s03$p_par
+```
+
+
+#### s04 {.hidden}
+
+```{r power mu constant sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s04$p
+```
+
+
+```{r power mu constant sigma parameters s04, include=FALSE}
+m_fit_2_1_s04$p_par
+```
+
+
+#### s05 {.hidden}
+
+
+```{r power mu constant sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s05$p
+```
+
+
+```{r power mu constant sigma parameters s05, include=FALSE}
+m_fit_2_1_s05$p_par
+```
+
+#### s06 {.hidden}
+
+```{r power mu constant sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s06$p
+```
+
+```{r power mu constant sigma parameters s06, include=FALSE}
+m_fit_2_1_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r power mu sigma constant s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s07$p
+```
+
+```{r power mu constant sigma parameters s07, include=FALSE}
+m_fit_2_1_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r power linear mu sigma constant s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s08$p
+```
+
+```{r power mu constant sigma parameters s08, include=FALSE}
+m_fit_2_1_s08$p_par
+```
+
+#### s09 {.hidden}
+
+
+```{r power mu constant sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 50))
+
+m_fit_2_1_s09$p
+```
+
+
+```{r power mu constant sigma parameters s09, include=FALSE}
+m_fit_2_1_s09$p_par
+```
+
+
+#### s10 {.hidden}
+
+
+```{r power mu constant sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+
+m_fit_2_1_s10$p
+```
+
+```{r power mu constant sigma parameters s10, include=FALSE}
+m_fit_2_1_s10$p_par
+```
+
+
+#### s11 {.hidden}
+
+
+```{r power mu constant sigma, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_1_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  power_fun_mu,
+  constant_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(80, 2.5, 30))
+m_fit_2_1_s11$p
+```
+
+```{r power mu constant sigma parameters s11, include=FALSE}
+m_fit_2_1_s11$p_par
+```
+
+
+
+```{r power mu constant sigma fits, include=FALSE}
+individual_fits_2_1 <- bind_rows(
+  m_fit_2_1_s01$fit,
+  m_fit_2_1_s02$fit,
+  m_fit_2_1_s03$fit,
+  m_fit_2_1_s04$fit,
+  m_fit_2_1_s05$fit,
+  m_fit_2_1_s06$fit,
+  m_fit_2_1_s07$fit,
+  m_fit_2_1_s08$fit,
+  m_fit_2_1_s09$fit,
+  m_fit_2_1_s10$fit,
+  m_fit_2_1_s11$fit
+)
+```
+
+```{r power mu constant sigma predictions, include=FALSE}
+individual_preds_2_1 <- bind_rows(
+  m_fit_2_1_s01$pred,
+  m_fit_2_1_s02$pred,
+  m_fit_2_1_s03$pred,
+  m_fit_2_1_s04$pred,
+  m_fit_2_1_s05$pred,
+  m_fit_2_1_s06$pred,
+  m_fit_2_1_s07$pred,
+  m_fit_2_1_s08$pred,
+  m_fit_2_1_s09$pred,
+  m_fit_2_1_s10$pred,
+  m_fit_2_1_s11$pred
+)
+```
+
+
+```{r power mu constant sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_2_1, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r power mu constant sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+        # geom_line(data = m_pred_model_2_1, 
+        #       aes(x = x, y = mu), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_1, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r power mu constant sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+      # geom_line(data = m_pred_model_2_1,
+      #       aes(x = x, y = sigma), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_1,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r power mu constant sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  #geom_line(data= d_delta, aes(x, delta_d)) +
+  geom_line(data = individual_preds_2_1, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 2_2: 
+Power mu, poisson sigma
+
+$$
+\sigma = \sqrt{\mu} + {p_3}
+$$
+
+#### s01 {.hidden}
+
+```{r power mu poisson sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, .1))
+
+m_fit_2_2_s01$p
+```
+
+
+```{r power mu poisson sigma parameters s01, include=FALSE}
+m_fit_2_2_s01$p_par
+```
+
+
+
+#### s02 {.hidden}
+
+<!-- p1 se va mucho -->
+
+```{r power mu poisson sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  # rep(.0000001, 3), 
+  # c(250, 5, .1))
+  rep(.0000001, 3), 
+  c(148, 10, .1))
+
+m_fit_2_2_s02$p
+```
+
+
+```{r power mu poisson sigma parameters s02, include=FALSE}
+m_fit_2_2_s02$p_par
+```
+
+
+#### s03 {.hidden}
+
+
+```{r power mu poisson sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  # rep(.0000001, 3), 
+  # c(250, 5, .1))
+  rep(.0000001, 3), 
+  c(500, 10, .1))
+
+m_fit_2_2_s03$p
+```
+
+
+```{r power mu poisson sigma parameters s03, include=FALSE}
+m_fit_2_2_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r power mu poisson sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, .1))
+
+
+m_fit_2_2_s04$p
+```
+
+
+```{r power mu poisson sigma parameters s04, include=FALSE}
+m_fit_2_2_s04$p_par
+```
+
+
+#### s05 {.hidden}
+
+
+```{r power mu poisson sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(500, 5, .1))
+
+m_fit_2_2_s05$p
+```
+
+
+```{r power mu poisson sigma parameters s05, include=FALSE}
+m_fit_2_2_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r power mu sigma poisson s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, .1))
+
+m_fit_2_2_s06$p
+```
+
+```{r power mu poisson sigma parameters s06, include=FALSE}
+m_fit_2_2_s06$p_par
+```
+
+
+#### s07 {.hidden}
+
+```{r power mu poisson sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(50, 2, .1))
+
+m_fit_2_2_s07$p
+```
+
+```{r power mu poisson sigma parameters s07, include=FALSE}
+m_fit_2_2_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r power mu poisson sigma, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(148, 5, .1))
+
+m_fit_2_2_s08$p
+```
+
+```{r power mu poisson sigma parameters s08, include=FALSE}
+m_fit_2_2_s08$p_par
+```
+
+#### s09 {.hidden}
+
+
+```{r power mu poisson sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, 2))
+
+m_fit_2_2_s09$p
+```
+
+
+```{r power mu poisson sigma parameters s09, include=FALSE}
+m_fit_2_2_s09$p_par
+```
+
+
+#### s10 {.hidden}
+
+```{r power mu poisson sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, .1))
+
+m_fit_2_2_s10$p
+```
+
+```{r power mu poisson sigma parameters s10, include=FALSE}
+m_fit_2_2_s10$p_par
+```
+
+#### s11 {.hidden}
+
+```{r power mu poisson sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_2_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  power_fun_mu,
+  poisson_sigma_power_mu,
+  rep(.0000001, 3), 
+  c(250, 5, .1))
+
+m_fit_2_2_s11$p
+```
+
+```{r power mu poisson sigma parameters s11, include=FALSE}
+m_fit_2_2_s11$p_par
+```
+
+
+
+```{r power mu poisson sigma fits, include=FALSE}
+individual_fits_2_2 <- bind_rows(
+  m_fit_2_2_s01$fit,
+  m_fit_2_2_s02$fit,
+  m_fit_2_2_s03$fit,
+  m_fit_2_2_s04$fit,
+  m_fit_2_2_s05$fit,
+  m_fit_2_2_s06$fit,
+  m_fit_2_2_s07$fit,
+  m_fit_2_2_s08$fit,
+  m_fit_2_2_s09$fit,
+  m_fit_2_2_s10$fit,
+  m_fit_2_2_s11$fit
+)
+```
+
+```{r power mu poisson sigma predictions, include=FALSE}
+individual_preds_2_2 <- bind_rows(
+  m_fit_2_2_s01$pred,
+  m_fit_2_2_s02$pred,
+  m_fit_2_2_s03$pred,
+  m_fit_2_2_s04$pred,
+  m_fit_2_2_s05$pred,
+  m_fit_2_2_s06$pred,
+  m_fit_2_2_s07$pred,
+  m_fit_2_2_s08$pred,
+  m_fit_2_2_s09$pred,
+  m_fit_2_2_s10$pred,
+  m_fit_2_2_s11$pred
+)
+```
+
+
+```{r power mu poisson sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_2_2, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r power mu poisson sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+        # geom_line(data = m_pred_model_2_2, 
+        #       aes(x = x, y = mu), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_2, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r power mu poisson sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+      # geom_line(data = m_pred_model_2_2,
+      #       aes(x = x, y = sigma), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_2,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r power mu poisson sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  #geom_line(data= d_delta, aes(x, delta_d)) +
+  geom_line(data = individual_preds_2_2, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 2_3: 
+Power mu, super poisson sigma
+
+$$
+\sigma = \sqrt{\mu + (p_3 \mu)^2} + {p_4}
+$$
+
+#### s01 {.hidden}
+
+```{r power mu super poisson sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 0.1, 0.1))
+
+m_fit_2_3_s01$p
+
+```
+
+```{r power mu super poisson sigma parameters s01, include=FALSE}
+m_fit_2_3_s01$p_par
+```
+
+
+#### s02 {.hidden}
+
+```{r power mu super poisson sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  # rep(.0000001, 4),
+  # c(100000, 5, 10, 0.1))
+
+  rep(.0000001, 4),
+  c(152, 5, 2, 0.1)) #c(152, 5, 0.5, 0.1))
+
+m_fit_2_3_s02$p
+```
+
+
+```{r power mu super poisson sigma parameters s02, include=FALSE}
+m_fit_2_3_s02$p_par
+```
+
+
+#### s03 {.hidden}
+
+```{r power mu super poisson sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(500, 5, 0.1, 0.1))
+
+m_fit_2_3_s03$p
+```
+
+
+```{r power mu super poisson sigma parameters s03, include=FALSE}
+m_fit_2_3_s03$p_par
+```
+
+#### s04 {.hidden}
+
+```{r power mu super poisson sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(300, 5, 0.1, 0.1))
+
+m_fit_2_3_s04$p
+```
+
+
+```{r power mu super poisson sigma parameters s04, include=FALSE}
+m_fit_2_3_s04$p_par
+```
+
+#### s05 {.hidden}
+
+
+```{r power mu super poisson sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(500, 5, 0.1, 0.1))
+
+m_fit_2_3_s05$p
+```
+
+
+```{r power mu super poisson sigma parameters s05, include=FALSE}
+m_fit_2_3_s05$p_par
+```
+
+#### s06 {.hidden}
+
+```{r power mu super poisson sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 0.1, 0.1))
+
+m_fit_2_3_s06$p
+```
+
+```{r power mu super poisson sigma parameters s06, include=FALSE}
+m_fit_2_3_s06$p_par
+```
+
+
+#### s07 {.hidden}
+
+```{r power mu super poisson sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 0.1, 0.1))
+
+m_fit_2_3_s07$p
+```
+
+```{r power mu super poisson sigma parameters s07, include=FALSE}
+m_fit_2_3_s07$p_par
+```
+
+
+#### s08 {.hidden}
+
+```{r power mu super poisson sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(152, 5, 0.1, 0.1))
+
+m_fit_2_3_s08$p
+```
+
+```{r power mu super poisson sigma parameters s08, include=FALSE}
+m_fit_2_3_s08$p_par
+```
+
+
+#### s09 {.hidden}
+
+
+```{r power mu super poisson sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 5, 0.1))
+
+m_fit_2_3_s09$p
+```
+
+
+```{r power mu super poisson sigma parameters s09, include=FALSE}
+m_fit_2_3_s09$p_par
+```
+
+#### s10 {.hidden}
+
+
+```{r power mu supper poisson sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 0.1, 0.1))
+
+m_fit_2_3_s10$p
+```
+
+```{r power mu super poisson sigma parameters s10, include=FALSE}
+m_fit_2_3_s10$p_par
+```
+
+#### s11 {.hidden}
+
+
+```{r power mu super poisson sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_3_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  power_fun_mu,
+  super_poisson_sigma_power_mu,
+  rep(.0000001, 4),
+  c(250, 5, 0.1, 0.1))
+
+m_fit_2_3_s11$p
+```
+
+```{r power mu super poisson sigma parameters s11, include=FALSE}
+m_fit_2_3_s11$p_par
+```
+
+
+
+```{r power mu super poisson sigma fits, include=FALSE}
+individual_fits_2_3 <- bind_rows(
+  m_fit_2_3_s01$fit,
+  m_fit_2_3_s02$fit,
+  m_fit_2_3_s03$fit,
+  m_fit_2_3_s04$fit,
+  m_fit_2_3_s05$fit,
+  m_fit_2_3_s06$fit,
+  m_fit_2_3_s07$fit,
+  m_fit_2_3_s08$fit,
+  m_fit_2_3_s09$fit,
+  m_fit_2_3_s10$fit,
+  m_fit_2_3_s11$fit
+)
+```
+
+```{r power mu super poisson sigma predictions, include=FALSE}
+individual_preds_2_3 <- bind_rows(
+  m_fit_2_3_s01$pred,
+  m_fit_2_3_s02$pred,
+  m_fit_2_3_s03$pred,
+  m_fit_2_3_s04$pred,
+  m_fit_2_3_s05$pred,
+  m_fit_2_3_s06$pred,
+  m_fit_2_3_s07$pred,
+  m_fit_2_3_s08$pred,
+  m_fit_2_3_s09$pred,
+  m_fit_2_3_s10$pred,
+  m_fit_2_3_s11$pred
+)
+```
+
+
+```{r power mu super poisson sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_2_3, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r power mu super poisson sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+        # geom_line(data = m_pred_model_2_3, 
+        #       aes(x = x, y = mu), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_3, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r power mu super poisson sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+      # geom_line(data = m_pred_model_2_3,
+      #       aes(x = x, y = sigma), color = "blue", alpha = .5) +
+    geom_line(data = individual_preds_2_3,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r power mu super poisson sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  #geom_line(data= d_delta, aes(x, delta_d)) +
+  geom_line(data = individual_preds_2_3, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 2_4: 
+Power mu, multiplicative sigma
+
+$$
+\sigma = p_3 \cdot \mu + {p_4}
+$$
+
+#### s01 {.hidden}
+```{r power mu multiplicative sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 2, 4, 8))
+
+m_fit_2_4_s01$p
+
+```
+
+```{r power mu multiplicative sigma parameters s01, include=FALSE}
+m_fit_2_4_s01$p_par
+```
+
+#### s02 {.hidden}
+
+```{r power mu multiplicative sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  c(0.0001, 0.0001, 0.0001, 0.00001),
+  c(53, 50, 2, 8)) #c(53, 50, 2.5, 8))
+
+m_fit_2_4_s02$p
+```
+
+
+```{r power mu multiplicative sigma s02 parameters, include=FALSE}
+m_fit_2_4_s02$p_par
+```
+
+#### s03 {.hidden}
+
+
+```{r power mu multiplicative sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(150, 50, 4, 8))
+
+m_fit_2_4_s03$p
+```
+
+
+```{r power mu multiplicative sigma s03 parameters, include=FALSE}
+m_fit_2_4_s03$p_par
+```
+
+
+#### s04 {.hidden}
+
+```{r power mu multiplicative sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s04$p
+```
+
+
+```{r power mu multiplicative sigma s04 parameters, include=FALSE}
+m_fit_2_4_s04$p_par
+```
+
+#### s05 {.hidden}
+
+
+```{r power mu multiplicative sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(200, 50, 4, 8))
+
+m_fit_2_4_s05$p
+```
+
+
+```{r power mu multiplicative sigma s05 parameters, include=FALSE}
+m_fit_2_4_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r power mu multiplicative sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s06$p
+```
+
+```{r power mu multiplicative sigma s06 parameters, include=FALSE}
+m_fit_2_4_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r power mu multiplicative sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s07$p
+```
+
+```{r power mu multiplicative sigma s07 parameters, include=FALSE}
+m_fit_2_4_s07$p_par
+```
+
+
+#### s08 {.hidden}
+
+```{r power mu multiplicative sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(53, 50, 4, 8))
+
+m_fit_2_4_s08$p
+```
+
+```{r power mu multiplicative sigma s08 parameters, include=FALSE}
+m_fit_2_4_s08$p_par
+```
+
+
+#### s09 {.hidden}
+
+```{r power mu multiplicative sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s09$p
+```
+
+
+```{r power mu multiplicative sigma s09 parameters, include=FALSE}
+m_fit_2_4_s09$p_par
+```
+
+
+#### s10 {.hidden}
+
+
+```{r power mu multiplicative sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s10$p
+```
+
+```{r power mu multiplicative sigma s10 parameters, include=FALSE}
+m_fit_2_4_s10$p_par
+```
+
+
+#### s11 {.hidden}
+
+
+```{r power mu multiplicative sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_4_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  power_fun_mu,
+  mult_sigma_power_mu,
+  rep(.0000001, 4),
+  c(100, 50, 4, 8))
+
+m_fit_2_4_s11$p
+```
+
+```{r power mu multiplicative sigma s11 parameters, include=FALSE}
+m_fit_2_4_s11$p_par
+```
+
+
+
+```{r power mu multiplicative sigma fits, include=FALSE}
+individual_fits_2_4 <- bind_rows(
+  m_fit_2_4_s01$fit,
+  m_fit_2_4_s02$fit,
+  m_fit_2_4_s03$fit,
+  m_fit_2_4_s04$fit,
+  m_fit_2_4_s05$fit,
+  m_fit_2_4_s06$fit,
+  m_fit_2_4_s07$fit,
+  m_fit_2_4_s08$fit,
+  m_fit_2_4_s09$fit,
+  m_fit_2_4_s10$fit,
+  m_fit_2_4_s11$fit
+)
+```
+
+```{r power mu multiplicative sigma predictions, include=FALSE}
+individual_preds_2_4 <- bind_rows(
+  m_fit_2_4_s01$pred,
+  m_fit_2_4_s02$pred,
+  m_fit_2_4_s03$pred,
+  m_fit_2_4_s04$pred,
+  m_fit_2_4_s05$pred,
+  m_fit_2_4_s06$pred,
+  m_fit_2_4_s07$pred,
+  m_fit_2_4_s08$pred,
+  m_fit_2_4_s09$pred,
+  m_fit_2_4_s10$pred,
+  m_fit_2_4_s11$pred
+)
+```
+
+
+```{r power mu multiplicative sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_2_4, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r power mu multiplicative sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_2_4, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+
+```
+
+
+```{r power mu multiplicative sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_2_4,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r power mu multiplicative sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  #geom_line(data= d_delta, aes(x, delta_d)) +
+  geom_line(data = individual_preds_2_4, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+## Model 2_5: 
+Power mu, power sigma
+
+$$
+\sigma = p_3 \cdot (\mu)^{p_5} + {p_4}
+$$
+
+#### s01 {.hidden}
+
+```{r power mu power sigma s01, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s01 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s01", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s01$p
+
+```
+
+```{r power mu power sigma parameters s01, include=FALSE}
+m_fit_2_5_s01$p_par
+```
+
+
+#### s02 {.hidden}
+
+```{r power mu power sigma s02, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s02 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s02", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(68, 3, 2, .5, 3)) #c(68, 3, 5, .5, 3))
+
+m_fit_2_5_s02$p
+```
+
+
+```{r power mu power sigma parameters s02, include=FALSE}
+m_fit_2_5_s02$p_par
+```
+
+
+#### s03 {.hidden}
+
+```{r power mu power sigma s03, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s03 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s03", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(68, 3, 1, .5, 3))
+
+m_fit_2_5_s03$p
+```
+
+
+```{r power mu power sigma parameters s03, include=FALSE}
+m_fit_2_5_s03$p_par
+```
+
+
+
+#### s04 {.hidden}
+
+```{r power mu power sigma s04, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s04 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s04", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s04$p
+```
+
+
+```{r power mu power sigma parameters s04, include=FALSE}
+m_fit_2_5_s04$p_par
+```
+
+#### s05 {.hidden}
+
+
+```{r power mu power sigma s05, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s05 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s05", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s05$p
+```
+
+
+```{r power mu power sigma s05 parameters, include=FALSE}
+m_fit_2_5_s05$p_par
+```
+
+
+#### s06 {.hidden}
+
+```{r power mu power sigma s06, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s06 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s06", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s06$p
+```
+
+```{r power mu power sigma s06 parameters, include=FALSE}
+m_fit_2_5_s06$p_par
+```
+
+#### s07 {.hidden}
+
+```{r power mu power sigma s07, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s07 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s07", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s07$p
+```
+
+```{r power mu power sigma s07 parameters, include=FALSE}
+m_fit_2_5_s07$p_par
+```
+
+#### s08 {.hidden}
+
+```{r power mu power sigma s08, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s08 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s08", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s08$p
+```
+
+```{r power mu power sigma s08 parameters, include=FALSE}
+m_fit_2_5_s08$p_par
+```
+
+
+#### s09 {.hidden}
+
+
+```{r power mu power sigma s09, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s09 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s09", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 3, .5, 3))
+
+m_fit_2_5_s09$p
+```
+
+
+```{r power mu power sigma s09 parameters, include=FALSE}
+m_fit_2_5_s09$p_par
+```
+
+#### s10 {.hidden}
+
+```{r power mu power sigma s10, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s10 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s10",
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s10$p
+```
+
+```{r power mu power sigma s10 parameters, include=FALSE}
+m_fit_2_5_s10$p_par
+```
+
+
+
+#### s11 {.hidden}
+
+
+```{r power mu power sigma s11, fig.width=15, fig.height=4, include=FALSE}
+m_fit_2_5_s11 <- fit_m_ind_fun(
+  m_dat, 
+  m_summ_bin,
+  "s11", 
+  power_fun_mu,
+  power_sigma_power_mu,
+  rep(.0000001, 5),
+  c(250, 3, 1, .5, 3))
+
+m_fit_2_5_s11$p
+```
+
+```{r power mu power sigma s11 parameters, include=FALSE}
+m_fit_2_5_s11$p_par
+```
+
+
+
+```{r power mu power sigma fits, include=FALSE}
+individual_fits_2_5 <- bind_rows(
+  m_fit_2_5_s01$fit,
+  m_fit_2_5_s02$fit,
+  m_fit_2_5_s03$fit,
+  m_fit_2_5_s04$fit,
+  m_fit_2_5_s05$fit,
+  m_fit_2_5_s06$fit,
+  m_fit_2_5_s07$fit,
+  m_fit_2_5_s08$fit,
+  m_fit_2_5_s09$fit,
+  m_fit_2_5_s10$fit,
+  m_fit_2_5_s11$fit
+)
+```
+
+```{r power mu power sigma predictions, include=FALSE}
+individual_preds_2_5 <- bind_rows(
+  m_fit_2_5_s01$pred,
+  m_fit_2_5_s02$pred,
+  m_fit_2_5_s03$pred,
+  m_fit_2_5_s04$pred,
+  m_fit_2_5_s05$pred,
+  m_fit_2_5_s06$pred,
+  m_fit_2_5_s07$pred,
+  m_fit_2_5_s08$pred,
+  m_fit_2_5_s09$pred,
+  m_fit_2_5_s10$pred,
+  m_fit_2_5_s11$pred
+)
+```
+
+
+```{r power mu power sigma plot raw data, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm))+
+    geom_line(data = individual_preds_2_5, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1.2)
+```
+
+
+```{r power mu power sigma plot mean, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_2_5, 
+              aes(x = x, y = mu), color = "aquamarine4", linewidth = 1) 
+
+
+```
+
+
+```{r power mu power sigma sd, include=FALSE}
+ggplot() + 
+  facet_wrap(vars(participant), scales = "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_2_5,
+            aes(x = x, y = sigma), color = "navajowhite3", linewidth = 1) +
+
+  
+  ylim(0, NA) 
+
+```
+
+```{r power mu power sigma delta, include=FALSE}
+ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data = individual_preds_2_5, 
+            aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) 
+```
+
+### MODELS:
+
+```{r linear mu all models model 2 fits, include=FALSE}
+individual_fits_2 <- bind_rows(
+  individual_fits_2_1 |>  mutate(model = "2_1"),
+  individual_fits_2_2 |>  mutate(model = "2_2"),
+  individual_fits_2_3 |>  mutate(model = "2_3"),
+  individual_fits_2_4 |>  mutate(model = "2_4"),
+  individual_fits_2_5 |>  mutate(model = "2_5"))
+  
+```
+
+```{r linealr mu all models model 2 predictions, include=FALSE}
+individual_preds_2 <- bind_rows(
+  individual_preds_2_1 |>  mutate(model = "2_1"),
+  individual_preds_2_2 |>  mutate(model = "2_2"),
+  individual_preds_2_3 |>  mutate(model = "2_3"),
+  individual_preds_2_4 |>  mutate(model = "2_4"),
+  individual_preds_2_5 |>  mutate(model = "2_5"))
+```
+
+
+### Plot models and raw data
+```{r linear mu all models model 2 plot raw data, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_dat, aes(x = c, y = r_norm), alpha = .3) +
+    geom_line(data = individual_preds_2, 
+              aes(x = x, y = mu, color = model)))
+```
+
+
+### Plot models and mean 
+```{r linear mu all models model 2 plot mean, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = m_norm), alpha = .3) +
+    geom_line(data = m_summ_bin, aes(x = c, y = m_norm)) +
+    geom_line(data = individual_preds_2, 
+              aes(x = x, y = mu, color = model)))
+```
+
+
+### Plot models and standard deviation 
+```{r linear mu all models model 1 sd, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_point(data = m_summ_bin, aes(x = c, y = sta_dev_norm), alpha = .3) +
+    geom_line(data = m_summ_bin, aes(x = c, y = sta_dev_norm)) +
+    geom_line(data = individual_preds_2, 
+              aes(x = x, y = sigma, color = model)))
+```
+
+
+### Plot models and delta
+```{r linear mu all models model 2 delta, echo=FALSE}
+ggplotly(ggplot() + 
+  facet_wrap(vars(participant), scales= "free") +
+    geom_line(data = individual_preds_2, 
+              aes(x = x, y = delta_m, color = model)))
+```
+
+
+```{r}
+individual_fits_2 |> select(par, model) |> unnest(par) |> 
+  filter(!participant %in% c("s02", "s08")) |>
+  filter(parn=="p1") |> 
+  group_by(model) |> 
+  summarise(mean_p1 = mean(par))
+```
+

@@ -1,0 +1,373 @@
+---
+title: "Untitled"
+editor: source
+---
+
+
+```{r}
+linear_mu <- quote(k*x)
+power_mu<- quote(k*x^alpha)
+sym_naka_mu <- quote(k*x^beta / nu^beta+x^beta)
+asym_naka_mu <- quote(k*x^beta / nu^{beta-alpha} + x^{beta-alpha})
+
+ad_sigma <- quote(sigma[0])
+poisson_sigma <- quote(sigma[0] + mu^0.5)
+poisson_sigma_escalar <- quote(sigma[0] + q*mu^0.5)
+modulated_poisson_sigma <- quote(sigma[0] + sqrt(mu + g^2*mu))
+modulated_poisson_sigma_escalar <- quote(sigma[0] + q*sqrt(mu + g^2*mu))
+mult_sigma <- quote(sigma[0] + q*mu)
+power_sigma <- quote(sigma[0] + q*mu^gamma)
+```
+
+#Linear models: ##constant sigma
+
+```{r}
+
+p_1_1 <- plot_suplementary_model(individual_fits_1_1) +
+  labs(title = bquote(mu == .(linear_mu) ~ "," ~ sigma == .(ad_sigma)))
+p_1_1
+
+```
+
+##Poisson sigma
+
+```{r}
+
+p_1_2 <- plot_suplementary_model(individual_fits_1_2) +
+  labs(title = bquote(mu == .(linear_mu) ~ "," ~ sigma == .(poisson_sigma)))
+p_1_2
+```
+
+##Modulated Poisson sigma
+
+```{r}
+p_1_3 <-plot_suplementary_model(individual_fits_1_3) +
+  labs(title = bquote(mu == .(linear_mu) ~ "," ~ sigma == .(modulated_poisson_sigma)))
+p_1_3
+```
+
+##Multiplicative sigma
+
+```{r}
+p_1_4 <-plot_suplementary_model(individual_fits_1_4) +
+  labs(title = bquote(mu == .(linear_mu) ~ "," ~ sigma == .(mult_sigma)))
+p_1_4
+```
+
+##Power sigma
+
+```{r}
+p_1_5 <-plot_suplementary_model(individual_fits_1_5) +
+  labs(title = bquote(mu == .(linear_mu) ~ "," ~ sigma == .(power_sigma)))
+p_1_5
+```
+
+Graph
+
+```{r}
+p_1 <- plot_grid(p_1_1, p_1_2, p_1_3, p_1_4, p_1_5,
+          nrow = 5,
+          labels = c("A", "B", "C", "D", "E"),
+          label_size = 10)
+
+ggsave("figures/p_1.pdf", p_1, width = 7.5, height = 8.5)
+```
+
+#Power model ##constant sigma
+
+```{r}
+p_2_1 <- plot_suplementary_model(individual_fits_2_1) +
+  labs(title = bquote(mu == .(power_mu) ~ "," ~ sigma == .(ad_sigma)))
+p_2_1
+
+```
+
+##Poisson sigma
+
+```{r}
+p_2_2 <- plot_suplementary_model(individual_fits_2_2) +
+  labs(title = bquote(mu == .(power_mu) ~ "," ~ sigma == .(poisson_sigma)))
+p_2_2
+```
+
+##Modulated Poisson sigma
+
+```{r}
+p_2_3 <-plot_suplementary_model(individual_fits_2_3) +
+  labs(title = bquote(mu == .(power_mu) ~ "," ~ sigma == .(modulated_poisson_sigma)))
+p_2_3
+```
+
+##Multiplicative sigma
+
+```{r}
+p_2_4 <-plot_suplementary_model(individual_fits_2_4) +
+  labs(title = bquote(mu == .(power_mu) ~ "," ~ sigma == .(mult_sigma)))
+p_2_4
+```
+
+##Power sigma
+
+```{r}
+p_2_5 <-plot_suplementary_model(individual_fits_2_5) +
+  labs(title = bquote(mu == .(power_mu) ~ "," ~ sigma == .(power_sigma)))
+p_2_5
+```
+
+graph
+
+```{r}
+p_2 <- plot_grid(p_2_1, p_2_2, p_2_3, p_2_4, p_2_5,
+          nrow = 5,
+          labels = c("A", "B", "C", "D", "E"),
+          label_size = 10)
+
+ggsave("figures/p_2.pdf", p_2, width = 7.5, height = 8.5)
+```
+
+#Sym naka model ##constant sigma
+
+```{r}
+p_3_1 <- plot_suplementary_model(individual_fits_3_1) +
+  labs(title = bquote(mu == .(sym_naka_mu) ~ "," ~ sigma == .(ad_sigma)))
+p_3_1
+
+```
+
+##Poisson sigma
+
+```{r}
+p_3_2 <- plot_suplementary_model(individual_fits_3_2) +
+  labs(title = bquote(mu == .(sym_naka_mu) ~ "," ~ sigma == .(poisson_sigma)))
+p_3_2
+```
+
+## Modulated Poisson sigma
+
+```{r}
+p_3_3 <-plot_suplementary_model(individual_fits_3_3) +
+  labs(title = bquote(mu == .(sym_naka_mu) ~ "," ~ sigma == .(modulated_poisson_sigma)))
+p_3_3
+```
+
+##Multiplicative sigma
+
+```{r}
+p_3_4 <-plot_suplementary_model(individual_fits_3_4) +
+  labs(title = bquote(mu == .(sym_naka_mu) ~ "," ~ sigma == .(mult_sigma)))
+p_3_4
+```
+
+##Power sigma
+
+```{r}
+p_3_5 <-plot_suplementary_model(individual_fits_3_5) +
+  labs(title = bquote(mu == .(sym_naka_mu) ~ "," ~ sigma == .(power_sigma)))
+p_3_5
+```
+
+graph
+
+```{r}
+p_3 <- plot_grid(p_3_1, p_3_2, p_3_3, p_3_4, p_3_5,
+          nrow = 5,
+          labels = c("A", "B", "C", "D", "E"),
+          label_size = 10)
+
+ggsave("figures/p_3.pdf", p_3, width = 7.5, height = 8.5)
+```
+
+#Asym naka model ##constant sigma
+
+```{r}
+p_4_1 <- plot_suplementary_model(individual_fits_4_1) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(ad_sigma)))
+p_4_1
+
+```
+
+##Poisson sigma
+
+```{r}
+p_4_2 <- plot_suplementary_model(individual_fits_4_2) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(poisson_sigma)))
+p_4_2
+```
+
+##Modulated Poisson sigma
+
+```{r}
+
+p_4_3 <-plot_suplementary_model(individual_fits_4_3) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(modulated_poisson_sigma)))
+p_4_3
+```
+
+##Multiplicative sigma
+
+```{r}
+p_4_4 <-plot_suplementary_model(individual_fits_4_4) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(mult_sigma)))
+p_4_4
+```
+
+##Power sigma
+
+```{r}
+
+p_4_5 <-plot_suplementary_model(individual_fits_4_5) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(power_sigma)))
+p_4_5
+```
+
+##graph
+
+```{r}
+p_4 <- plot_grid(p_4_1, p_4_2, p_4_3, p_4_4, p_4_5,
+          nrow = 5,
+          labels = c("A", "B", "C", "D", "E"),
+          label_size = 10)
+
+ggsave("figures/p_4.pdf", p_4, width = 7.5, height = 8.5)
+```
+
+##Poisson sigma vs modulated Poisson sigma for the asym naka model #poisson
+
+```{r}
+p_4_2_1 <-plot_suplementary_model(individual_fits_4_2_1) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(poisson_sigma_escalar)))
+p_4_2_1
+```
+
+## modulated Poisson
+
+```{r}
+p_4_3_1 <-plot_suplementary_model(individual_fits_4_3_1) +
+  labs(title = bquote(mu == .(asym_naka_mu) ~ "," ~ sigma == .(modulated_poisson_sigma_escalar)))
+p_4_3_1
+```
+
+##graph
+
+```{r}
+p_4_1 <- plot_grid(p_4_2_1, p_4_3_1,
+          nrow = 5,
+          labels = c("A", "B"),
+          label_size = 10)
+
+ggsave("figures/p_4_1.pdf", p_4_1, width = 7.5, height = 8.5)#8.5)width = 7.5
+```
+
+#Logistic function:
+
+```{r}
+plot_p_correct_log <- ggplot() +
+  facet_wrap(vars(participant), ncol = 4, axes= "all", axis.labels="margins") +
+  geom_point(data = prop_logistic_d_p_correct,
+             aes(x = (10^x + c_pedestal)*100, y = prop, color = factor(c_pedestal*100)), shape=16, size = 0.5) +
+  geom_line(data = psy_logistic_d_p_correct,
+            aes(x = (10^x + c_pedestal)*100, y = prop, color = factor(c_pedestal*100)), linewidth=0.3) +
+  geom_text(data = prop_logistic_d_p_correct|> group_by(participant) |> slice(1), 
+            aes(x = 7, y = 0.5, label = participant),
+            size = 2, hjust=0) +
+  scale_color_manual(values = c("#CBB2DD", "#9F73C2","#7436A6","#4B1A78")) +
+  theme_paper(7) +
+  scale_y_continuous(breaks = seq(0, 1, .25)) +
+  scale_x_log10(limits = c(NA, 15), expand = c(0, 0)) +
+  theme(legend.position = "none",
+        strip.text = element_blank(),
+        strip.background = element_blank()) +
+  xlab("Contrast (%)") +
+  ylab("Proportion correct")
+
+
+legend_discr_log <- get_legend(
+  plot_p_correct_log + 
+    theme(legend.position = "right") +
+    labs(color = "Reference (%)") +
+    guides(color = guide_legend(ncol = 2)))
+
+
+plot_p_correct_legend_log <- ggdraw(plot_p_correct_log) + 
+  draw_grob(legend_discr_log, x = 0.81, y = 0.1, width = 0.15, height = 0.3)
+plot_p_correct_legend_log
+```
+
+```{r}
+p_deltas_log <- 
+  ggplot() +
+  geom_point(data = threshold_logistic, aes(x = c_pedestal*100, y = delta, color = "Discr(thres)"), size = 0.5) +
+  geom_line(data = threshold_logistic, aes(x = c_pedestal*100, y = delta, color = "Discr(thres)"), linewidth = 0.2, linetype="dashed") +
+  facet_wrap(vars(participant), axes= "all", axis.labels="margins") +
+  geom_line(data = m_delta_a, aes(x*100, delta_m, color = "ME"), linewidth = 0.2) +
+  geom_line(data = d_delta_a, aes(x*100, delta_d, color = "Discr"), linewidth = 0.2) +
+  scale_color_manual(name=NULL,
+                     values = c("darkorchid4", "aquamarine4", "darkorchid4"),
+                     labels = c("ME" = "ME", "Discr" = "Discr", "Discr(thres)" = "Discr(thres)"),
+                     guide = "legend",
+                     breaks = c("Discr", "ME", "Discr(thres)")) +
+  geom_text(data =  m_delta_a|> group_by(participant) |> slice(1), 
+            aes(x = 10, y = 350, label = participant),
+            size = 2, hjust=0) +
+  theme_paper(7) +
+  theme(strip.text = element_blank(),
+        strip.background = element_blank(),
+          legend.position = "none",
+          guides(color = guide_legend(override.aes = list(
+    shape = c(NA, NA, 16),            
+    linetype = c(1, 1, NA)
+  )))) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 2), expand=c(0,0), limits=c(0, NA)) +
+  scale_x_continuous(limits=c(0, NA), expand=c(0,0)) +
+  xlab("Contrast (%)") +
+  ylab("D")
+
+```
+
+```{r}
+p_deltas_all_log <- ggplot(sum_deltas |> mutate(contrast=x*100)) +
+  geom_point(data = threshold_logistic_all, aes(x = c_pedestal*100, y = delta, color="dot")) +
+  geom_line(data = threshold_logistic_all, aes(x = c_pedestal*100, y = delta, color = "dot"), linewidth=0.3, linetype="dashed") +
+  geom_line(aes(contrast, estimate, color = model), linewidth=0.3) +
+  scale_color_manual(name=NULL,
+                     values = c("darkorchid4", "darkorchid4", "aquamarine4"),
+                     labels = c("dot" = "Discr(thres)","delta_d" = "Discr", "delta_m" = "ME"),
+                     guide = "legend",
+                     breaks = c("dot", "delta_d", "delta_m")) +
+  theme_paper(7) +
+  theme(legend.position = "right")+
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 2), expand=c(0,0), limits=c(0, NA)) +
+  scale_x_continuous(limits=c(0, NA), expand=c(0,0)) +
+  xlab("Contrast (%)") +
+  ylab("D") +
+  coord_cartesian(ylim=c(0, NA)) +
+  guides(color = guide_legend(override.aes = list(
+    shape = c(16, NA, NA),            
+    linetype = c(1, 1, 1)
+  )))
+p_deltas_all_log
+```
+
+```{r}
+p_deltas_all_log_leg <- get_legend(p_deltas_all_log + 
+    guides(fill="none") +
+    theme(legend.position = "right",
+          legend.text = element_text(size=6)))
+
+p_discr_log <- plot_grid(
+  plot_p_correct_legend_log,
+  p_deltas_log,
+  p_deltas_all_log,
+  NULL,
+  nrow = 2,
+  ncol = 2,
+  #align = 'vh',
+  labels = c("A", "B", "C"),
+  label_size = 10)
+p_discr_log
+
+p_discr_log_legend <- ggdraw(p_discr_log + 
+  draw_grob(p_deltas_all_log_leg, x = 0.9, y = 0.53, width = 0.10, height = 0.2))
+p_discr_log_legend
+ggsave("figures/p_discr_log_legend.pdf", p_discr_log_legend, width = 6.5, height = 4.7)
+```

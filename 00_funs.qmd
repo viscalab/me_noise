@@ -1,0 +1,56 @@
+---
+title: "libraries and data"
+format: html
+editor: source 
+---
+
+
+Upload the libraries
+```{r libraries, message=FALSE}
+library(esc)
+library(ggforce)
+library(rlang)
+library(furrr)
+library(plotly)
+library(cowplot)
+library(broom)
+library(quickpsy)
+library(nloptr)
+library(car)
+library(tidyverse)
+library(BayesFactor)
+library(gt)
+```
+
+```{r workers number, include=FALSE}
+plan(multisession, workers = 7) 
+```
+
+```{r}
+list.files("R", full.names = TRUE) |>
+  walk(source)
+```
+
+
+
+Take the data from the magnitude estimation task and make the table of the magnitude estimation experiment
+
+```{r magnitude estimation data, include=FALSE}
+m_dat_raw <- read_files("data_m", 
+                  extension = "csv", 
+                  cond = 1, 
+                  participant = 3, 
+                  session = 2) |> 
+  rename(r = response)
+```
+
+Take the data from the discrimination task and make the table of the discrimination experiment
+
+```{r discrimination data, include=FALSE}
+d_dat_raw <- read_files("data_d",
+                        extension = "csv", 
+                        cond = 1, 
+                        participant = 3, 
+                        session = 2) |> 
+  arrange_data_d()
+```

@@ -1,0 +1,663 @@
+---
+title: "Deltas comparison"
+format: html
+editor: source
+---
+
+
+## Delta from magnitude estimation:
+
+Delta measured as: 
+$$
+\Large \delta =\frac{\mu'(x)}{\sigma(x)}
+$$
+Where mu' is the derivative of the mu and sigma is the standard deviation of the noise.
+
+From the model 4_5
+
+Asymmetric Naka- Rushton mu 
+$$
+\mu = \frac{p_1 \cdot x^{p_2}}{x^{p_2 + p_4} + p_3^{p_2 + p_4}}
+$$
+
+power sigma
+
+$$
+\sigma = p_5 \cdot (\mu)^{p_7} + {p_6}
+$$
+
+
+```{r plot delta me, echo=FALSE}
+m_delta <- individual_preds_4_5
+
+m_delta |> 
+  ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(aes(x, delta_m), color = "aquamarine4", linewidth = 0.9)
+```
+Log
+```{r plot delta log me, echo=FALSE}
+m_der_delta_log <- m_delta |> 
+         mutate(der_m = c(NA, diff(delta_m_log) / diff(x_log))) |> 
+  group_by(participant) |> 
+  slice_tail(n = 1) 
+
+m_delta |> 
+  ggplot(aes(x_log, delta_m_log)) +
+  facet_wrap(vars(participant)) +
+  geom_line(color = "aquamarine4", linewidth = 0.9) 
+
+```
+
+
+## Delta from discrimination: 
+
+```{r delta from discrimination, include=FALSE}
+d_delta <- d_delta_asym|> 
+  rename(delta_d = delta) |> 
+  mutate(x_log = log10(x),
+         delta_d_log = log10(delta_d))
+```
+
+
+```{r plot delta from discrimination, echo=FALSE}
+  ggplot() +
+  facet_wrap(vars(participant)) +
+  geom_line(data= d_delta, aes(x, delta_d), color = "darkorchid4", linewidth = 0.9)
+```
+Log
+```{r plot delta discrimination log, echo=FALSE}
+d_delta_log <- d_delta |> 
+  mutate(der_d = c(NA, diff(delta_d_log) / diff(x_log))) |> 
+  group_by(participant) |> 
+  slice_tail(n = 1) 
+
+
+d_delta |> 
+  ggplot(aes(x_log, delta_d_log)) +
+  facet_wrap(vars(participant)) +
+  geom_line(color = "darkorchid4", linewidth = 0.9)
+```
+
+
+## Deltas comparison
+Plot of the deltas together by participant:
+
+```{r plot deltas together, echo=FALSE}
+ggplot() +
+  geom_line(data = m_delta, aes(x, delta_m), color = "aquamarine4", linewidth = 0.9) +
+  facet_wrap(vars(participant)) +
+  geom_line(data = d_delta, aes(x, delta_d), color = "darkorchid4", linewidth = 0.9)
+```
+
+Log
+```{r plot deltas together log, echo=FALSE}
+ggplot() +
+  geom_line(data = m_delta, aes(x_log, delta_m_log), color = "aquamarine4", linewidth = 0.9) +
+  facet_wrap(vars(participant), scales = "free") +
+  geom_line(data = d_delta, aes(x_log, delta_d_log), color = "darkorchid4", linewidth = 0.9) 
+    #geom_abline(data =  d_delta_log, aes(intercept =delta_d_log - der_d * x_log , slope = der_d), color = "red", linetype = "dashed", size = 1) +
+    #geom_abline(data =  m_delta_log, aes(intercept =delta_m_log - der_m * x_log , slope = der_m), color = "blue", linetype = "dashed", size = 1)+
+
+  
+```
+
+
+### Analysis:
+
+#### Contrast at max sensitivy
+
+Correlation of the contrast at which the sensitivity is higher by participant:
+```{r correlation contrast max, include=FALSE}
+max_c_m <- m_delta |>
+  slice_max(delta_m) |> rename(c_max_m = x)
+
+
+max_c_d <- d_delta |> 
+  filter(delta_d == max(delta_d)) |> rename(c_max_d = x)
+
+ 
+c_combined <- left_join(max_c_m, max_c_d, by = "participant")
+
+shapiro.test(max_c_m$c_max_m)
+shapiro.test(max_c_d$c_max_d)
+
+c_combined |> 
+  ggplot()+
+  geom_point(aes(x = c_max_m, y = 1), size = 3, alpha = 0.7) +
+  geom_point(aes(x = c_max_d, y = .5), size = 3, alpha = 0.7)
+
+```
+
+```{r correlationt tests at which contrast max, echo=FALSE}
+
+cor.test(c_combined$c_max_d, 
+                    c_combined$c_max_m)
+
+correlationBF(c_combined$c_max_d, 
+                    c_combined$c_max_m)
+
+ttestBF(c_combined$c_max_d, 
+          c_combined$c_max_m, paired = TRUE)
+
+t.test(c_combined$c_max_d, c_combined$c_max_m, paired = TRUE)
+```
+
+Plot means contrast at max sensitivity
+```{r plot means contrast max, echo=FALSE}
+c_combined |> 
+  pivot_longer(cols = c(c_max_d, c_max_m), names_to = "model", values_to = "contrast") |> 
+  group_by(model) |> 
+  summarise(calculate_t_ci(contrast)) |> 
+  ggplot(aes(x = model, y = estimate, color=model)) +
+  geom_point(data = c_combined |> 
+               pivot_longer(cols = c(c_max_d, c_max_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, color=model), alpha = 0.8) +
+  geom_line(data = c_combined |> 
+               pivot_longer(cols = c(c_max_d, c_max_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, group = participant, color=model), color = "gray70", alpha = 0.8) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  scale_color_manual(values = c(
+    "c_max_d" = "darkorchid4",
+    "c_max_m" = "aquamarine4"
+  )) +
+  ylab("Position") +
+  xlab("Model")
+
+```
+
+Linear regression:
+```{r linear regresion contrast max, echo=FALSE}
+lm_c_max <- lm(c_max_m ~ c_max_d, data = c_combined)
+lm_c_max
+
+linearHypothesis(lm_c_max, "(Intercept) = 0")
+
+linearHypothesis(lm_c_max, "c_max_d = 1")
+
+```
+
+Plot of the correlation:
+```{r plot contrast max, echo=FALSE}
+c_combined |> 
+  ggplot()+
+  geom_point(aes(x = c_max_d, y = c_max_m, color = as_factor(participant))) +
+  coord_equal() +
+  geom_abline(slope = 1, intercept = 0) +
+  geom_abline(slope = lm_c_max$coefficients[2], intercept = lm_c_max$coefficients[1], linetype = "dashed") +
+  xlim(-.01, .04) +
+  ylim(-.01, .04) +
+  xlab("Position D") +
+  ylab("Position M")
+``` 
+
+
+#### Contrast at max sensitivy log
+
+
+```{r correlacion max contrast log, include=FALSE}
+max_c_m_log <- m_delta |>
+  slice_max(delta_m_log) |> rename(c_max_m_log = x_log)
+
+
+max_c_d_log <- d_delta |> 
+  filter(delta_d_log == max(delta_d_log)) |> rename(c_max_d_log = x_log) 
+
+  
+c_combined_log <- left_join(max_c_m_log, max_c_d_log, by = "participant")
+
+shapiro.test(max_c_m_log$c_max_m_log)
+shapiro.test(max_c_d_log$c_max_d_log)
+
+c_combined_log |> 
+  ggplot()+
+  geom_point(aes(x = c_max_m_log, y = 1),  size = 3, alpha = 0.7) +
+  geom_point(aes(x = c_max_d_log, y = .5), size = 3, alpha = 0.7)
+
+```
+
+
+```{r test correlacion contrast max log, echo=FALSE}
+cor.test(c_combined_log$c_max_d_log, 
+                    c_combined_log$c_max_m_log)
+
+correlationBF(c_combined_log$c_max_d_log, 
+                    c_combined_log$c_max_m_log)
+
+
+ttestBF(c_combined_log$c_max_d_log, 
+                    c_combined_log$c_max_m_log, paired = TRUE)
+t.test(c_combined_log$c_max_d_log, c_combined_log$c_max_m_log, paired = TRUE)
+```
+
+Plot means contrast at max sensitivity log
+```{r plot means contrast max log, echo=FALSE}
+c_combined_log |> 
+  pivot_longer(cols = c(c_max_d_log, c_max_m_log), names_to = "model", values_to = "contrast") |> 
+  group_by(model) |> 
+  summarise(calculate_t_ci(contrast)) |> 
+  ggplot(aes(x = model, y = estimate, color=model)) +
+    geom_point(size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  geom_point(data = c_combined_log |> 
+               pivot_longer(cols = c(c_max_d_log, c_max_m_log), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, color=model), alpha = 0.8) +
+  geom_line(data = c_combined_log |> 
+               pivot_longer(cols = c(c_max_d_log, c_max_m_log), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, group = participant, color=model), color = "gray70", alpha = 0.8) +
+  scale_color_manual(values = c(
+    "c_max_d_log" = "darkorchid4",
+    "c_max_m_log" = "aquamarine4"
+  )) +
+  ylab("Position") +
+  xlab("Model")
+
+```
+
+Linear Regresion 
+```{r linrear regression contrast max log, echo=FALSE}
+lm_c_max_log <- lm(c_max_m_log ~ c_max_d_log, data = c_combined_log)
+lm_c_max_log
+
+linearHypothesis(lm_c_max_log, "(Intercept) = 0")
+
+linearHypothesis(lm_c_max_log, "c_max_d_log = 1")
+
+``` 
+
+
+Plot of log correlation:
+
+```{r c combine log, echo=FALSE}
+c_combined_log |> 
+  ggplot()+
+  geom_point(aes(x = c_max_d_log, y = c_max_m_log, color = as_factor(participant))) +
+  coord_equal() +
+  geom_abline(slope = 1, intercept = 0) +
+  geom_abline(slope = lm_c_max_log$coefficients[2], intercept = lm_c_max_log$coefficients[1], linetype = "dashed") +
+  xlab("Position D") +
+  ylab("Position M")
+```
+
+
+
+
+#### Max sensitivy
+
+Correlation of higher sensitivity by participant:
+```{r correlacion of max sensitivity, include=FALSE}
+max_m <- m_delta |> 
+  group_by(participant) |> 
+  summarise(max_m = max(delta_m, na.rm = TRUE)) 
+
+
+max_d <- d_delta |> 
+  group_by(participant) |> 
+  summarise(max_d = max(delta_d, na.rm = TRUE)) 
+
+
+max_combined <- left_join(max_m, max_d, by = "participant")
+
+shapiro.test(max_m$max_m)
+shapiro.test(max_d$max_d)
+
+max_combined  |> 
+  ggplot()+
+  geom_point(aes(x = max_m, y = 1), size = 3, alpha = 0.7) +
+  geom_point(aes(x = max_d, y = .5), size = 3, alpha = 0.7)
+
+```
+
+```{r test correlation max sensitivity, echo=FALSE}
+
+cor.test(max_combined$max_m, 
+                    max_combined$max_d)
+
+correlationBF(max_combined$max_m, 
+                    max_combined$max_d)
+
+ttestBF(max_combined$max_m, 
+                    max_combined$max_d, paired = TRUE)
+
+t.test(max_combined$max_m, max_combined$max_d, paired = TRUE)
+```
+
+Plot means at max sensitivity 
+```{r plot means max, echo=FALSE}
+max_combined |> 
+  pivot_longer(cols = c(max_d, max_m), names_to = "model", values_to = "contrast") |> 
+  group_by(model) |> 
+  summarise(calculate_t_ci(contrast)) |> 
+  ggplot(aes(x = model, y = estimate, color=model)) +
+    geom_point(size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  geom_point(data = max_combined |> 
+               pivot_longer(cols = c(max_d, max_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, color=model), alpha = 0.8) +
+  geom_line(data = max_combined |> 
+               pivot_longer(cols = c(max_d, max_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, group = participant, color=model), color = "gray70", alpha = 0.8) +
+  scale_color_manual(values = c(
+    "max_d" = "darkorchid4",
+    "max_m" = "aquamarine4"
+  )) +
+  ylab("Amplitude") +
+  xlab("Model")
+
+```
+
+
+Linear regression:
+```{r linear regression max sensitivity, echo=FALSE}
+lm_max <- lm(max_m ~ max_d, data = max_combined)
+lm_max
+
+linearHypothesis(lm_max, "(Intercept) = 0")
+
+linearHypothesis(lm_max, "max_d = 1")
+
+```
+
+Plot of the correlation:
+```{r plot max sensitivity, echo=FALSE}
+max_combined |> 
+  ggplot()+
+  geom_point(aes(x = max_d, y = max_m, color = as_factor(participant))) +
+  coord_equal() +
+  geom_abline() +
+  geom_abline(slope = lm_max$coefficients[2], intercept = lm_max$coefficients[1], linetype = "dashed") +
+  xlab("Max Sensitivity D") +
+  ylab("Max Sensitivity M")
+```
+
+#### Max sensitivity log
+```{r correlacion max sensitivity log, include=FALSE}
+max_m_log <- m_delta |> 
+  group_by(participant) |> 
+  summarise(max_m_log = max(delta_m_log, na.rm = TRUE)) 
+
+max_d_log <- d_delta |> 
+  group_by(participant) |> 
+  summarise(max_d_log = max(delta_d_log, na.rm = TRUE))
+
+max_combined_log <- left_join(max_m_log, max_d_log, by = "participant")
+
+shapiro.test(max_m_log$max_m_log)
+shapiro.test(max_d_log$max_d_log)
+
+max_combined_log  |> 
+  ggplot()+
+  geom_point(aes(x = max_m_log, y = 1), size = 3, alpha = 0.7) +
+  geom_point(aes(x = max_d_log, y = .5), size = 3, alpha = 0.7)
+
+```
+
+```{r test correlation max sensitivity log, echo=FALSE}
+cor.test(max_combined_log$max_m_log, 
+                    max_combined_log$max_d_log)
+
+correlationBF(max_combined_log$max_m_log, 
+                    max_combined_log$max_d_log)
+
+ttestBF(max_combined_log$max_m_log, 
+                    max_combined_log$max_d_log, paired = TRUE)
+t.test(max_combined_log$max_m_log, max_combined_log$max_d_log, paired = TRUE)
+```
+
+Plot means at max sensitivity log
+```{r plot means max log, echo=FALSE}
+max_combined_log |> 
+  pivot_longer(cols = c(max_d_log, max_m_log), names_to = "model", values_to = "contrast") |> 
+  group_by(model) |> 
+  summarise(calculate_t_ci(contrast)) |> 
+  ggplot(aes(x = model, y = estimate, color=model)) +
+    geom_point(size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  geom_point(data = max_combined_log|> 
+               pivot_longer(cols = c(max_d_log, max_m_log), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, color=model), alpha = 0.8) +
+  geom_line(data = max_combined_log |> 
+               pivot_longer(cols = c(max_d_log, max_m_log), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, group = participant, color=model), color = "gray70", alpha = 0.8) +
+  scale_color_manual(values = c(
+    "max_d_log" = "darkorchid4",
+    "max_m_log" = "aquamarine4"
+  )) +
+  ylab("Amplitude") +
+  xlab("Model")
+
+```
+
+Linear regression 
+```{r linear regression max sensitivity log, echo=FALSE}
+lm_max_log <- lm(max_m_log ~ max_d_log, data = max_combined_log)
+lm_max_log
+
+linearHypothesis(lm_max_log, "(Intercept) = 0")
+
+linearHypothesis(lm_max_log, "max_d_log = 1")
+```
+
+Plot of the correlation:
+```{r plot max sensitivity log, echo=FALSE}
+max_combined_log |> 
+  ggplot()+
+  geom_point(aes(x = max_d_log, y = max_m_log, color = as_factor(participant))) +
+  coord_equal() +
+  geom_abline() +
+  geom_abline(slope = lm_max_log$coefficients[2], intercept = lm_max_log$coefficients[1], linetype = "dashed") +
+  xlab("Max Sensitivity D") +
+  ylab("Max Sensitivity M")
+```
+
+
+#### Derivative of the log deltas at the higher contrast 
+(Weber's law)
+
+
+```{r correlacion der log deltas, echo=FALSE}
+c_combined_der <- left_join(d_delta_log, m_der_delta_log, by = "participant")
+
+cor.test(c_combined_der$der_m, 
+                    c_combined_der$der_d)
+correlationBF(c_combined_der$der_m, 
+                    c_combined_der$der_d)
+
+ttestBF(c_combined_der$der_m, 
+                    c_combined_der$der_d, paired = TRUE)
+
+t.test(c_combined_der$der_m, c_combined_der$der_d, paired = TRUE)
+```
+
+Plot means of the derivative of the log deltas
+```{r plot der log, echo=FALSE}
+c_combined_der |> 
+  pivot_longer(cols = c(der_d, der_m), names_to = "model", values_to = "contrast") |> 
+  group_by(model) |> 
+  summarise(calculate_t_ci(contrast)) |> 
+  ggplot(aes(x = model, y = estimate, color=model)) +
+    geom_point(size = 3) +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  geom_point(data = c_combined_der |> 
+               pivot_longer(cols = c(der_d, der_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, color=model), alpha = 0.8) +
+  geom_line(data = c_combined_der |> 
+               pivot_longer(cols = c(der_d, der_m), names_to = "model", values_to = "contrast"), 
+             aes(x = model, y = contrast, group = participant, color=model), color = "gray70", alpha = 0.8) +
+  scale_color_manual(values = c(
+    "der_d" = "darkorchid4",
+    "der_m" = "aquamarine4"
+  )) +
+  ylab("Der") +
+  xlab("Model")
+
+```
+
+Linear regression:
+```{r linear regression der log deltas, echo=FALSE}
+lm_der <- lm(der_m ~ der_d, data = c_combined_der)
+lm_der
+
+linearHypothesis(lm_der, "(Intercept) = 0")
+
+linearHypothesis(lm_der, "der_d = 1")
+
+```
+
+Plot of the correlation:
+```{r plot der log deltas, echo=FALSE}
+c_combined_der |> 
+  ggplot()+
+  geom_point(aes(x = der_d, y = der_m, color = as_factor(participant))) +
+  coord_equal() +
+  geom_abline() +
+  geom_abline(slope = lm_der$coefficients[2], intercept = lm_der$coefficients[1], linetype = "dashed") +
+  xlab("Der D") +
+  ylab("Der M")
+```
+
+#### Mean Sensitivity:
+```{r mean sensitivity, include=FALSE}
+mean_m <- m_delta |> 
+  group_by(participant) |> 
+  summarise(mean_m = mean(delta_m, na.rm = TRUE))
+
+mean_d <- d_delta |> 
+  group_by(participant) |> 
+  summarise(mean_d = mean(delta_d, na.rm = TRUE))
+mean_combined <- left_join(mean_m, mean_d, by = "participant")
+
+```
+
+## Correlation of the delta curves intra subjects: {.hidden}
+
+```{r correlation of the delta curves, include=FALSE}
+common_grid <- seq(
+  min(c(d_delta$x, m_delta$x)), 
+  max(c(d_delta$x, m_delta$x)), 
+  length.out = 200
+)
+
+interp_d <- d_delta |> 
+  group_by(participant) |> 
+  summarise(
+    sens_d = list(approx(x, delta_d, xout = common_grid)$y),
+    .groups = "drop"
+  )
+
+
+interp_m <- m_delta |> 
+  group_by(participant) |> 
+  summarise(
+    sens_m = list(approx(x, delta_m, xout = common_grid)$y),
+    .groups = "drop"
+  )
+
+
+deltas <- interp_d |> 
+  inner_join(interp_m, by = "participant")
+
+
+cor_suj <- deltas|> 
+  mutate(cor = map2_dbl(sens_d, sens_m, ~ cor(.x, .y, use = "complete.obs"))) |> 
+  ungroup()
+
+cor_suj
+
+```
+
+```{r test correlation of the deltas, include=FALSE}
+t.test(cor_suj$cor, mu = 0) 
+```
+
+
+```{r plot all participants bad, include=FALSE}
+ggplot()+
+  geom_line(data = d_delta |> group_by(x) |> 
+              summarise(calculate_t_ci(delta_d)), aes(x, estimate),  color = "darkorchid4") +
+  geom_line(data = m_delta |> 
+              drop_na() |> 
+              group_by(x) |> 
+              summarise(calculate_t_ci(delta_m)), aes(x, estimate), color = "aquamarine4") +
+  geom_ribbon(data = d_delta |> group_by(x) |> 
+                summarise(calculate_t_ci(delta_d)), aes(x, ymin = conf.low, ymax = conf.high), fill = "darkorchid4", alpha = 0.4) +
+  geom_ribbon(data = m_delta |> 
+                drop_na() |> 
+                group_by(x) |> 
+                summarise(calculate_t_ci(delta_m)), aes(x, ymin = conf.low, ymax = conf.high),, fill = "aquamarine4", alpha = 0.4)
+```
+
+```{r plot confidence interval of deltas all participnts, include=FALSE}
+
+d_delta_all <- d_delta |> 
+  select(participant, x, delta_d)
+
+m_delta_all <- m_delta |> 
+  select(participant, x, delta_m)
+
+
+deltas <- d_delta_all |> 
+  inner_join(m_delta_all, by = c("participant", "x"))
+
+sum_deltas <- deltas |> 
+  drop_na() |> 
+  pivot_longer(cols = c(delta_m, delta_d), names_to = c("model"), values_to = "deltas") |>
+  group_by(model, x) |> 
+  summarise(
+    calculate_t_ci(deltas)
+  )
+  
+```
+
+
+```{r funtion to calculate t test, include=FALSE}
+calculate_t_test <- function(.x, .y) {
+  ci <- t.test(.x, .y, paired = TRUE) |> 
+    tidy() |> 
+    select(p.value)
+  
+  ci
+}
+```
+
+
+```{r t test of deltas all participants, include=FALSE}
+xx <- deltas |> 
+  drop_na() |>
+  ungroup() |> 
+  group_by(x) |> 
+  summarise(t_test=calculate_t_test(delta_d, delta_m)) |> 
+  unnest(t_test) |> 
+  mutate(sig = if_else(p.value < 0.05, "yes", "no"))
+
+
+xx
+```
+
+
+## Deltas of all participants together:
+
+```{r plot confidence interval of deltas all participnts with t test, echo=FALSE}
+ggplotly(ggplot(sum_deltas) +
+  geom_line(aes(x, estimate, color = model), linewidth = 1) +
+  geom_ribbon(aes(x, ymin = conf.low, ymax = conf.high, fill = model), alpha = 0.4) +
+  #geom_line(data = threshold_logistic_all, aes(x = c_pedestal, y = delta), color = "black", linetype = "dashed", size = 1) +
+  scale_color_manual(values = c("darkorchid4", "aquamarine4")) +
+  scale_fill_manual(values = c("darkorchid4", "aquamarine4")) +
+  geom_segment(
+  data = filter(xx, sig == "yes"),
+  aes(
+    x = x,
+    xend = x,
+    y = 0,     # límite inferior
+    yend = 5   # límite superior
+  ),
+  color = "grey"
+))
+```
+
+
+
+
+
