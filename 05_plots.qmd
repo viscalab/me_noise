@@ -27,7 +27,7 @@ d_prop_a <- d_prop |>
   contrast_p = x_p*100,
   contrast_c = x_c*100)
 
-d_psy_asym_noise_a <- d_psy |> 
+d_psy_a <- d_psy |> 
   mutate(
   contrast_p = x_p*100,
   contrast_c = x_c*100)
@@ -168,11 +168,11 @@ ggsave("figures/p_fit.pdf", p_fit, width = 6, height = 4.2)
 ```{r}
 plot_p_correct <- ggplot() +
   facet_wrap(vars(participant), ncol = 4, axes= "all", axis.labels="margins") +
-  geom_point(data = d_prop_noise_a,
+  geom_point(data = d_prop_a,
              aes(x = contrast_c, y = prop, color = factor(x_p*100)), shape = 16,  size = 0.75) +
-  geom_line(data = d_psy_asym_noise_a,
+  geom_line(data = d_psy_a,
             aes(x = contrast_c, y = prop, color = factor(x_p*100)), linewidth=0.3) +
-  geom_text(data = d_prop_noise_a|> group_by(participant) |> slice(1), 
+  geom_text(data = d_prop_a|> group_by(participant) |> slice(1), 
             aes(x = 7, y = .5, label = participant),
             fill = NA, label.color = NA, size = 2, hjust=0) +
   scale_color_manual(values = c("#CBB2DD", "#9F73C2","#7436A6","#4B1A78")) +

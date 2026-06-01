@@ -25,18 +25,13 @@ individual <- bind_rows(
   individual_fits_3_5 |> mutate(model = "sym naka rushton mu, power sigma"),
   individual_fits_4_1 |> mutate(model = "asym naka rushton mu, constant sigma"),
   individual_fits_4_2 |> mutate(model = "asym naka rushton mu, poisson sigma"),
-  individual_fits_4_2_1 |> mutate(model = "asym naka rushton mu, poisson sigma q"),
   individual_fits_4_3 |> mutate(model = "asym naka rushton mu, modulated poisson sigma"),
-  individual_fits_4_3_1 |> mutate(model = "asym naka rushton mu, modulated poisson sigma q"),
   individual_fits_4_4 |> mutate(model = "asym naka rushton mu, multiplicative sigma"),
   individual_fits_4_5 |> mutate(model = "asym naka rushton mu, power sigma"))
   
 individual_fits <- individual |> 
   mutate(n_par = map_int(par, nrow)) |> 
   select(participant, model, log_lik, AIC, BIC, n_par)
-
-individual_fits_noq <- individual_fits |> 
-  filter(!model %in% c("asym naka rushton mu, poisson sigma q", "asym naka rushton mu, modulated poisson sigma q"))
 ```
 
 
@@ -56,22 +51,6 @@ individual_fits |> group_by(participant) |> slice_min(AIC)
 
 
 
-
-```{r}
-resumen_modelos <- individual_fits |> 
-  group_by(participant, model) |> 
-  group_by(participant) |> 
-  mutate(es_mejor = ifelse(AIC == min(AIC), 1, 0)) |> 
-  group_by(model) |> 
-  summarise(
-    sum_aic = sum(AIC),               
-    n_ganador = sum(es_mejor),             
-    pct_ganador = n_ganador / n_distinct(individual_fits$participant) * 100
-  ) |> 
-  arrange(sum_aic)
-
-resumen_modelos
-```
 
 ```{r}
 
@@ -151,80 +130,6 @@ t_s1
   
 ```
 
-```{r}
-equation_model_noq <- c(
-  "asym naka rushton mu, power sigma" = "$\\mu = \\frac{kx^\\beta}{\\nu^{\\beta-\\alpha} + x^{\\beta-\\alpha}}, \\sigma = \\sigma_0 + q\\mu^\\gamma$",
-  "asym naka rushton mu, modulated poisson sigma" = "$\\mu = \\frac{kx^\\beta}{\\nu^{\\beta-\\alpha} + x^{\\beta-\\alpha}}, \\sigma = \\sigma_0 + \\cdot \\sqrt{\\mu + g^2\\mu}$",
-  "asym naka rushton mu, poisson sigma" = "$\\mu = \\frac{kx^\\beta}{\\nu^{\\beta-\\alpha} + x^{\\beta-\\alpha}}, \\sigma = \\sigma_0 +\\mu^{0.5}$",
-  "sym naka rushton mu, power sigma" = "$\\mu = \\frac{kx^\\beta}{\\nu^\\beta + x^\\beta}, \\sigma = \\sigma_0 + q\\mu^\\gamma$",
-  "asym naka rushton mu, multiplicative sigma" = "$\\mu = \\frac{kx^\\beta}{\\nu^{\\beta-\\alpha} + x^{\\beta-\\alpha}}, \\sigma = \\sigma_0 + q\\mu$"
-)
-
-best_ind_model_noq <- individual_fits_noq |> 
-  group_by(participant) |> 
-  slice_min(AIC, n = 1, with_ties = FALSE) |> 
-  ungroup() |> 
-  count(model, name = "n_win") 
-
-weight_p_noq <- individual_fits_noq |> 
-  group_by(participant) |> 
-  mutate(min_AIC = min(AIC),
-         delta_ind = AIC - min_AIC,
-         weight_ind = exp(-0.5 * delta_ind) / sum(exp(-0.5 * delta_ind))) |> 
-  group_by(model) |>
-  summarise(weight_mean = mean(weight_ind)) |> 
-  arrange(desc(weight_mean))
-
-t_AIC_values_noq <- individual_fits_noq |> 
-  group_by(model) |> 
-  summarise(n_par = unique(n_par),
-            Sum_AIC = sum(AIC)) |> 
-  mutate(delta_AIC = Sum_AIC - min(Sum_AIC)) |> 
-  left_join(weight_p_noq, by = "model") |> 
-  inner_join(best_ind_model_noq, by = "model") |> 
-  select(model, n_win, Sum_AIC, delta_AIC, weight_mean) |>
-  arrange(Sum_AIC) |> 
-  mutate(model = case_when(
-    model %in% names(equation_model_noq) ~ equation_model_noq[model],
-    TRUE ~ model))
-
-
-t_s1_noq <- t_AIC_values_noq |> 
-  gt() |> 
-  fmt_markdown(columns = model) |>
-  cols_label(
-    model = "Model",
-    n_win = "N",
-    Sum_AIC = "AIC",
-    delta_AIC = "ΔAIC",
-    weight_mean = "wAIC"
-  ) |>
-  fmt_number(columns = c(Sum_AIC, delta_AIC), decimals = 0, use_seps = FALSE) |>
-  fmt_number(columns = weight_mean, decimals = 3) |>
-  cols_align(align = "left", columns = model) |> 
-  cols_align(align = "center", columns = c(n_win, Sum_AIC, delta_AIC, weight_mean)) |> 
-  tab_style(
-    style = cell_text(weight = "bold"),
-    locations = cells_column_labels()
-  ) |> 
-  tab_options(
-    table.font.names = "Times New Roman",
-    table.border.top.color = "black",
-    table.border.top.width = px(1.5),
-    column_labels.border.bottom.color = "black",
-    column_labels.border.bottom.width = px(1),
-    table.border.bottom.color = "black",
-    table.border.bottom.width = px(1.5),
-    table_body.hlines.style = "none",
-    table_body.vlines.style = "none",
-    column_labels.vlines.style = "none",
-    table.border.left.style = "none",
-    table.border.right.style = "none",
-    data_row.padding = px(8))
-t_s1_noq
-
-#gtsave(data = t_s1_noq, filename = "figures/t_s1_noq.pdf")
-```
 
 
 

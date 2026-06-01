@@ -19,7 +19,8 @@ mult_sigma <- quote(sigma[0] + q*mu)
 power_sigma <- quote(sigma[0] + q*mu^gamma)
 ```
 
-#Linear models: ##constant sigma
+#Linear models: 
+##constant sigma
 
 ```{r}
 
@@ -73,7 +74,8 @@ p_1 <- plot_grid(p_1_1, p_1_2, p_1_3, p_1_4, p_1_5,
 ggsave("figures/p_1.pdf", p_1, width = 7.5, height = 8.5)
 ```
 
-#Power model ##constant sigma
+#Power model 
+##constant sigma
 
 ```{r}
 p_2_1 <- plot_suplementary_model(individual_fits_2_1) +
