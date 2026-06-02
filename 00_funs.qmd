@@ -26,6 +26,7 @@ library(gt)
 plan(multisession, workers = 7) 
 ```
 
+
 ```{r}
 list.files("R", full.names = TRUE) |>
   walk(source)

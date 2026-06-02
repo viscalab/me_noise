@@ -8,22 +8,21 @@ editor: source
 
 Discrimination Task:
 
-3 Diferent models:
-
 Fit the responses of the discrimination tasks from an internal representation:
 
-Fit 3 different models of the internal representation:
 
-
-
-Asymetric naka rushton:
+non-saturating sigmoidal transducer:
 
 $$
 \mu = \frac{p_1 \cdot x^{p_2}}{x^{p_2 + p_4} + p_3^{p_2 + p_4}}
 $$
+power noise:
 
+$$
+\sigma = p_5 \cdot (\mu)^{p_7} + {p_6}
+$$
 
-```{r tidy data discrimination, include=FALSE}
+```{r}
 d_dat <- d_dat_raw |>
   ungroup() |> 
   select(participant, order, c_pedestal, c_comparison, c_dif, response) |> 
@@ -38,9 +37,9 @@ d_dat <- d_dat_raw |>
 d_dat
 ```
 
+## FIT
 
-
-```{r asymetric fit nloptr, include=FALSE}
+```{r}
 set.seed(1000)
 
 correct_par_ini_asym_nloptr <- c(20, 3, .02, -.5, 0.5, 0.01, 0.6 ) 
@@ -83,7 +82,7 @@ d_fit_asym |>
 
 
 
-```{r psy models together, include=FALSE}
+```{r}
 d_prop<- d_fit_asym |>
   select(participant, prop) |>
   unnest(prop)
@@ -93,9 +92,9 @@ d_psy <- d_fit_asym |>
   unnest(psy)
 ```
 
-## Plot fits of proportion correct from the models
 
-```{r, plot fit models, fig.width=8, fig.height=20, echo=FALSE}
+
+```{r}
  ggplot() +
     facet_wrap(vars(participant, abs_x_p), ncol = 4, scales = "free_x") +
     geom_point(data = d_prop |> 
@@ -110,7 +109,7 @@ d_psy <- d_fit_asym |>
 
 ```
 
-```{r plot together the references, include=FALSE}
+```{r}
 ggplot() +
   facet_wrap(vars(participant), ncol = 4) +
   geom_point(data = d_prop, size = .75,
@@ -119,10 +118,10 @@ ggplot() +
             aes(x = x_c, y = prop, color = factor(x_p)))
 ```
 
-## Plot fits of the internal representation from the models
+## Plotinternal representation from the models
 mu
 
-```{r best model, echo=FALSE}
+```{r}
 
 d_delta_asym <- d_fit_asym |>
   select(participant, mu) |> 
@@ -138,7 +137,7 @@ p_d_delta_mu
 ```
 
 sigma
-```{r plot sd, echo=FALSE}
+```{r}
 p_d_delta_sigma <- ggplot() +
   facet_wrap(vars(participant), scales = "free") +
   geom_line(data= d_delta_asym, aes(x, sigma)) +
@@ -148,8 +147,8 @@ p_d_delta_sigma
 ```
 
 
-## Plot sensitivity (delta) from the models: 
-```{r delta best model, echo=FALSE}
+## Plot sensitivity (delta): 
+```{r}
 p_d_delta <- ggplot() +
   facet_wrap(vars(participant)) +
   geom_line(data= d_delta_asym,
