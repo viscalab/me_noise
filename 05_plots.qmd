@@ -366,28 +366,6 @@ ggsave("figures/comparison_stats1.png", comparison_stats,
 ```
 
 
-
-```{r}
-plot_grid(plot_p_correct_legend, 
-         p_position_stats, 
-         ncol = 1, 
-         align = "h", 
-         axis = "left")
-```
-
-
-```{r}
-
-aligned_ab <- align_plots(p_discr, comparison_stats, align = 'h', axis = 'l')
-
-gg <- plot_grid(
-  aligned_ab[[1]],
-  aligned_ab[[2]],
-  ncol = 1)
-gg
-
-
-```
 ####################
 
 
@@ -469,6 +447,7 @@ legend_sens <- get_legend(
 
 p_stats_deltas_all_legend <- ggdraw(p) + 
   draw_grob(legend_sens, x = 0.935, y = 0.57, width = 0.05, height = 0.1)
+p
 
 ggsave("figures/p_stats_deltas_all_legend.pdf", p_stats_deltas_all_legend, width = 6.8, height = 4.8)
 ```
